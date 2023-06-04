@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrazione avvenuta</title>
+    <link rel="stylesheet" href="styleOkOk.css">
+    <script>
+        function includeHTML(elementId, fileUrl) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById(elementId).innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", fileUrl, true);
+            xhttp.send();
+        }
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            includeHTML("navbar", "nav.html");
+            includeHTML("navbar2", "barrainferiore.html"); // Aggiunta del secondo file HTML
+        });
+    </script>
+</head>
+<body>
+<div id="navbar"></div>
+<div id="visualizza">
+    <p  style="margin-top: 20%; text-align: center; opacity: 100%";>Complimenti! <br>
+        Il logout è avvenuto con successo
+        <br>
+    </p>
+</div>
+<div id="navbar2"></div>
+</body>
+</html>

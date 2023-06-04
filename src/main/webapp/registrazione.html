@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Contatti</title>
+  <link rel="stylesheet" href="styleOkOk.css">
+  <script>
+    function includeHTML(elementId, fileUrl) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById(elementId).innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", fileUrl, true);
+      xhttp.send();
+    }
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+      includeHTML("navbar", "nav.html");
+      includeHTML("navbar2", "barrainferiore.html"); // Aggiunta del secondo file HTML
+    });
+  </script>
+</head>
+
+<body >
+<div id="navbar"></div>
+<div id="form" style="text-align: center; margin-top: 5%">
+  <form >
+    <input type="text" id="fname" name="fname" placeholder="nome">
+    <input type="text" id="lname" name="lname" placeholder="cognome">
+    <br>
+
+
+    <input type="date" id="data-nascita-label" name="data-nascita" placeholder="Data nascita">
+    <br>
+    <input type="text" id="email" name="email" placeholder="email">
+    <input type="tel" id="numero-cellulare" name="numero-cellulare" placeholder="Inserisci il numero di cellulare">
+    <br>
+    <input type="username" id="username-label" name="username" placeholder="username">
+    <br>
+    <input type="password" id="password1" name="password" placeholder="password">
+    <input type="password" id="password" name="password" placeholder="ripeti password">
+    <br>
+    <select style="width:80%" name="ruolo" >
+      <option>scegli il tuo ruolo</option>
+      <option>simpatizzante</option>
+      <option>aderente</option>
+    </select>
+    <br>
+    <br>
+    <div style="width:170px; margin-left:auto; margin-right:auto; margin-top:20px">
+      <input type="submit" value="Invia" style="background-color:#B4DC7F; width: 80px; height: 30px;">
+      <input type="submit" value="Pulisci" style="background-color:#B4DC7F; width: 80px; height: 30px;">
+    </div>
+  </form>
+</div>
+<div id="navbar2"></div>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html><html>
+
+
+
+    <head>
+        <meta charset="UTF-8">
+        <title>TUM4WORLD</title>
+        <link rel="stylesheet" href="styleOkOk.css">
+        <script>
+            function includeHTML(elementId, fileUrl) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById(elementId).innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", fileUrl, true);
+                xhttp.send();
+            }
+            document.addEventListener("DOMContentLoaded", function(event) {
+                includeHTML("navbar", "nav.html");
+                includeHTML("navbar2", "barrainferiore.html");
+            });
+        </script>
+    </head>
+
+
+
+    <body>
+        <div id="navbar"></div>
+        <table class="tabellaDaCentrare">
+            <tr>
+                <td style="width:33%"> <img src="img/logo3.png" class="centratura"></td>
+                <td style="width:33%; font-weight:bold" > <p class="centratura">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras faucibus orci sed urna laoreet, sed tempus ex mollis. Vivamus venenatis luctus tincidunt. In sodales turpis est, id eleifend leo ultricies at. Vivamus lacinia enim tellus, nec aliquet leo vestibulum</td>
+                <td style="width:33%"> <img src="img/home_associazione.jpg" style="border-radius: 5%" class="centratura"></td>
+            </tr>
+            <tr>
+                <td style="width:33%"> <button id="volantino" type="button" class="centratura">SCARICA IL VOLANTINO</button></td>
+                <td style="width:33%"> </td>
+                <td style="width:33%"> <p class="fraseMotivazionale">Frase motivazionale Frase motivazionale Frase motivazionale Frase motivazionale</p> </td>
+            </tr>
+        </table>
+        <div id="navbar2"></div>
+    </body>
+
+
+
+</html>
