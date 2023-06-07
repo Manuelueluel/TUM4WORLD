@@ -5,62 +5,64 @@
 <head>
   <meta charset="UTF-8">
   <title>Chi siamo</title>
-  <link rel="stylesheet" href="styleOkOk.css">
-  <script>
-    function includeHTML(elementId, fileUrl) {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById(elementId).innerHTML = this.responseText;
-        }
-      };
-      xhttp.open("GET", fileUrl, true);
-      xhttp.send();
-    }
-    document.addEventListener("DOMContentLoaded", function(event) {
-      includeHTML("navbar", "nav.html");
-      includeHTML("navbar2", "barrainferiore.html"); // Aggiunta del secondo file HTML
-    });
+  <link rel="stylesheet" href="style.css">
 
-    const vettoreFrasi = ["1 La Tum4World è stata fondata nel 2000 in risposta ai primi studi sui rischi per le tartarughe verdi marine della Grande Barriera Corallina australiana a causa del riscaldamento globale", "2 Questa specie è particolarmente vulnerabile alle temperature dell'habitat durante la fase di incubazione delle uova, poiché il sesso dipende da essa: le temperature più calde producono più femmine", "3 A causa del surriscaldamento globale la popolazione maschile delle tartarughe verdi è in declino rapido da oltre due decenni. Il nostro team lavora costantemente sul campoper far schiudere tutte le uova nelle spiagge dove le tartarughe le hanno deposte, ma abbiamo anche costruito un laboratorio dove creiamo le condizioni favorevoli per far nascere un numero equo di tartarughe femmine e maschi da rilasciare in natura", "4 In aggiunta alla protezione delle tartarughe verdi, la Tum4World si impegna a proteggere la Grande Barriera Corallina, l'habitat naturale delle nostre amiche tartarughe"];
+  <script>
+
+    const vettoreFrasi = ["La Tum4World è stata fondata nel 2000 in risposta ai primi studi sui rischi per le tartarughe verdi marine della Grande Barriera Corallina australiana a causa del riscaldamento globale",
+                          "Questa specie è particolarmente vulnerabile alle temperature dell'habitat durante la fase di incubazione delle uova, poiché il sesso dipende da essa: le temperature più calde producono più femmine",
+                          "A causa del surriscaldamento globale la popolazione maschile delle tartarughe verdi è in declino rapido da oltre due decenni. Il nostro team lavora costantemente sul campo per far schiudere tutte le uova nelle spiagge dove le tartarughe le hanno deposte, ma abbiamo anche costruito un laboratorio dove creiamo le condizioni favorevoli per far nascere un numero equo di tartarughe femmine e maschi da rilasciare in natura",
+                          "In aggiunta alla protezione delle tartarughe verdi, la Tum4World si impegna a proteggere la Grande Barriera Corallina, l'habitat naturale delle nostre amiche tartarughe"];
+    const vettorePercorsi = ["img/prima.jpg","img/seconda.jpg","img/terza.jpg","img/quarta.jpg"]
     let indice = 0;
+
     function funzioneFrecciaSinistra() {
       let testoDaModificare = document.getElementById("ourTesto");
+      let pathDaModificare = document.getElementById("imageToModify")
       if(indice == 0)
         indice = vettoreFrasi.length-1;
       else
         indice--;
       testoDaModificare.innerText = vettoreFrasi[indice];
+      pathDaModificare.src = vettorePercorsi[indice];
     }
+
     function funzioneFrecciaDestra() {
       let testoDaModificare = document.getElementById("ourTesto");
+      let pathDaModificare = document.getElementById("imageToModify")
       if(indice == vettoreFrasi.length-1)
         indice = 0;
       else
         indice = indice+1;
       testoDaModificare.innerText = vettoreFrasi[indice];
+      pathDaModificare.src = vettorePercorsi[indice];
     }
+
   </script>
+
+  <script src="randomQuotes.js"></script>
+  <script src="loadNavbars.js"></script>
+
 </head>
 
 
 
-<body >
+<body>
   <div id="navbar"></div>
   <div id="titleContainer"><h1 id="title">Chi siamo?</h1></div>
   <br>
   <br>
   <table class="tabellaDaCentrare">
     <tr>
-      <td style="width: 50%"> <p class="centratura" id="ourTesto"> 1 La Tum4World è stata fondata nel 2000 in risposta ai primi studi sui rischi per le tartarughe verdi marine della Grande Barriera Corallina australiana a causa del riscaldamento globale</p>
+      <td style="width: 50%"> <p class="centratura" id="ourTesto">La Tum4World è stata fondata nel 2000 in risposta ai primi studi sui rischi per le tartarughe verdi marine della Grande Barriera Corallina australiana a causa del riscaldamento globale</p>
       </td>
-      <td style="width:50%"> <img src="img/tartarugaplastica.jpg" style="border-radius: 5%" class="centratura"></td>
+      <td style="width:50%"> <img src="../../../../../../../xampp/htdocs/img/prima.jpg" id="imageToModify" style="border-radius: 5%" class="centratura"></td>
     </tr>
   </table>
   <table class="tabellaDaCentrare" style="width:100%">
     <tr>
       <td style="width:50%"> <div class="centratura"><button type="button" class="bottoneFreccia" onclick="funzioneFrecciaSinistra()"><</button><button type="button" class="bottoneFreccia" onclick="funzioneFrecciaDestra()">></button></div></td>
-      <td style="width:50%"> <p class="fraseMotivazionaleChiSiamo">Frase motivazionale Frase motivazionale Frase motivazionale Frase motivazionale </td>
+      <td style="width:50%"> <div id="fraseMotivazionale" class="centratura" style="background: rgb(255, 255, 255, 0.5); height: 82px; width: 40%; border-radius:5%; padding:10px; margin-top: 20px"></div> </td>
     </tr>
   </table>
   <div id="navbar2"></div>

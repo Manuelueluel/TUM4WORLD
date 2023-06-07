@@ -1,55 +1,50 @@
-<!DOCTYPE html>
+<!DOCTYPE html><html>
 
-<html>
+
+
   <head>
     <meta charset="UTF-8">
     <title>Contatti</title>
-    <link rel="stylesheet" href="styleOkOk.css">
-    <script>
-      function includeHTML(elementId, fileUrl) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            document.getElementById(elementId).innerHTML = this.responseText;
-          }
-        };
-        xhttp.open("GET", fileUrl, true);
-        xhttp.send();
-      }
-
-      document.addEventListener("DOMContentLoaded", function(event) {
-        includeHTML("navbar", "nav.html");
-        includeHTML("navbar2", "barrainferiore.html"); // Aggiunta del secondo file HTML
-      });
-    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="randomQuotes.js"></script>
+    <script src="loadNavbars.js"></script>
   </head>
 
+
+
   <body >
-  <div id="navbar"></div>
-      <div id = "form">
-        <form id="usrform">
-          <input type="text" id="nomecontatti" name="fname" placeholder="nome">
-          <input type="text" id="cognomecontatto" name="lname" placeholder="cognome">
-          <br>
-          <input type="text" id="emailsec" name="email" placeholder="email">
-          <br>
-          <select name="motivi" id="motivi">
-            <option>motivo 1</option>
-            <option>motivo 2</option>
-          </select>
-          <br>
-          <textarea rows="4" cols="50" name="comment" form="usrform" id="testo">Enter text here...</textarea>
-          <br>
-          <br>
-          <div style="width:170px; margin-left:auto; margin-right:auto">
-            <input type="submit" value="Invia" style="background-color:#B4DC7F; width: 80px; height: 30px;">
-            <input type="submit" value="Pulisci" style="background-color:#B4DC7F; width: 80px; height: 30px;">
-          </div>
-        </form>
-        <p id="paragrafo"> Indirizzo associazione: via tale 25 <br>
-          Numero di telefono: 123456789 </p>
-      </div>
-  <div id="navbar2"></div>
+    <div id="navbar"></div>
+    <div id="form">
+      <form id="usrform">
+        <input type="text" id="nomecontatti" name="fname" placeholder="Nome">
+        <input type="text" id="cognomecontatto" name="lname" placeholder="Cognome">
+        <br>
+        <input type="text" id="emailsec" name="email" placeholder="E-mail">
+        <br>
+        <div style="margin-top: 15px; margin-bottom:7px">Perché vuoi contattarci?</div>
+        <select name="motivi" id="motivi">
+          <option>Voglio saperne di più</option>
+          <option>Voglio contribuire</option>
+          <option>Voglio diventare socio</option>
+          <option>Altro</option>
+        </select>
+        <br>
+        <textarea rows="4" cols="50" name="comment" form="usrform" id="testo" placeholder="Scrivi qui il messaggio..."></textarea>
+        <br>
+        <br>
+        <div style="width:170px; margin-left:auto; margin-right:auto">
+          <input type="submit" value="Invia" style="background-color:#B4DC7F; width: 80px; height: 30px;">
+          <input type="submit" value="Pulisci" style="background-color:#B4DC7F; width: 80px; height: 30px;">
+        </div>
+      </form>
+      <table id="tabellaDaCentrare">
+        <tr>
+          <td style="width:60%"><p id="paragrafo"> Indirizzo associazione: via tale 25 <br> Numero di telefono: 123456789 </p></td>
+          <td style="width:40%"><div id="fraseMotivazionale" class="centratura" style="background: rgb(255, 255, 255, 0.5); height: 82px; width: 175px; border-radius:5%; padding:10px; margin-top: 50px"> </div></td>
+        </tr>
+      </table>
+    </div>
+    <div id="navbar2"></div>
   </body>
 
 </html>

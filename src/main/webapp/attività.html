@@ -5,23 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Attività</title>
-    <link rel="stylesheet" href="styleOkOk.css">
-    <script>
-        function includeHTML(elementId, fileUrl) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById(elementId).innerHTML = this.responseText;
-                }
-            };
-            xhttp.open("GET", fileUrl, true);
-            xhttp.send();
-        }
-        document.addEventListener("DOMContentLoaded", function(event) {
-            includeHTML("navbar", "nav.html");
-            includeHTML("navbar2", "barrainferiore.html");
-        });
-    </script>
+    <link rel="stylesheet" href="style.css">
+    <script src="randomQuotes.js"></script>
+    <script src="loadNavbars.js"></script>
 </head>
 
 
@@ -30,9 +16,10 @@
     <div id="navbar"></div>
     <table class="tabellaDaCentrare">
         <tr>
-            <td style="width:33.33%"><div class="zoomye"><a href="goo.html"><img src="img/protect the turtles (1).png" class="insta"></a></div></td>
-            <td style="width:33.33%"><div class="zoomye"><a href="goo.html"><img src="img/protect the turtles (2).png" class="insta"></a></div></td>
-            <td style="width:33.33%"><div class="zoomye"><a href="goo.html"><img src="img/protect the turtles (3).png" class="insta"></a></div></td>
+            <td style="width:25%"><div class="zoomye"><a href="goo.html"><img src="img/Protect the turtles (1).png" class="insta"></a></div></td>
+            <td style="width:25%"><div class="zoomye"><a href="goo.html"><img src="img/Protect the turtles (2).png" class="insta"></a></div></td>
+            <td style="width:25%"><div class="zoomye"><a href="goo.html"><img src="img/Protect the turtles (3).png" class="insta"></a></div></td>
+            <td style="width:25%"><div id="fraseMotivazionale" class="centratura" style="background: rgb(255, 255, 255, 0.5); height: 95px; width: 75%; border-radius:5%; padding:10px; margin-top: 20px"></div> </td>
         </tr>
     </table>
     <div id="navbar2"></div>
