@@ -1,47 +1,37 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html> <html>
+
+
 
   <head>
     <meta charset="UTF-8">
     <title>Registrazione</title>
-    <link rel="stylesheet" href="styleOkOk.css">
-    <script>
-      function includeHTML(elementId, fileUrl) {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            document.getElementById(elementId).innerHTML = this.responseText;
-          }
-        };
-        xhttp.open("GET", fileUrl, true);
-        xhttp.send();
-      }
+    <link rel="stylesheet" href="style.css">
+    <script src="loadNavbars.js"></script>
+    <script src="randomQuotes.js"></script>
+  </head>
 
-      document.addEventListener("DOMContentLoaded", function(event) {
-        includeHTML("navbar", "nav.html");
-        includeHTML("navbar2", "barrainferiore.html"); // Aggiunta del secondo file HTML
-      });
-    </script>
+
 
   <body>
-  <div id="navbar"></div>
-        <p style="text-align: center; margin-top: 5%; font-size:30px; font-family: Rockwell"> ACCESSO AREA RISERVATA</p>
-        <br>
-        <form id="form"  style="text-align: center; margin-top: 5%;">
-
-          <input type="text" id="username-label" name="username"placeholder="username">
-          <br>
-          <br>
-
-          <input type="text" id="password" name="password" placeholder="password">
-          <br>
-          <br>
-          <a style="text-align: center" href="registrazione.html">Non hai ancora un account? Registrati adesso</a>
-          <br>
-          <input type="submit" value="OK" style="background-color:#B4DC7F; width: 80px; height: 30px; margin-top: 30px">
-        </form>
-    <div id="nav-placeholder-bottom"></div>
-  <div id="navbar2"></div>
+    <div id="navbar"></div>
+    <p style="text-align: center; margin-top: 5%; font-size:30px; font-family: Rockwell"> ACCESSO AREA RISERVATA</p>
+    <br>
+    <form id="form"  style="text-align: center; margin-top: 5%;">
+      <input type="text" id="username-label" name="username"placeholder="username">
+      <br>
+      <br>
+      <input type="text" id="password" name="password" placeholder="password">
+      <br>
+      <br>
+      <a style="text-align: center" href="registrazione.html">Non hai ancora un account? Registrati adesso</a>
+      <br>
+      <input type="submit" value="OK" style="background-color:#B4DC7F; width: 80px; height: 30px; margin-top: 30px">
+    </form>
+    <div id="fraseMotivazionale" class="centratura" style="background: rgb(255, 255, 255, 0.5); height: 60px; width: 30%; border-radius:10%; padding:10px; margin-top: 20px; text-align:center"> </div>
+    <div id="navbar2"></div>
   </body>
+
+
+
 
 </html>

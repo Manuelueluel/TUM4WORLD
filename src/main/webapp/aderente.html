@@ -1,50 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
+
+
+
 <head>
     <meta charset="UTF-8">
-    <title>Pagina simpatizzante</title>
-    <link rel="stylesheet" href="styleOkOk.css">
-    <script>
-        function includeHTML(elementId, fileUrl) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById(elementId).innerHTML = this.responseText;
-                }
-            };
-            xhttp.open("GET", fileUrl, true);
-            xhttp.send();
-        }
-
-        document.addEventListener("DOMContentLoaded", function(event) {
-            includeHTML("navbar", "navaccesso.html");
-            includeHTML("navbar2", "barrainferiore.html"); // Aggiunta del secondo file HTML
-        });
-    </script>
+    <title>Pagina: Simpatizzante</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="loadNavbarsPrivate.js"></script>
+    <script src="randomQuotes.js"></script>
 </head>
+
+
+
 <body>
 <div id="navbar"></div>
-
 <p style="margin-left: 4%; margin-top: 2%; font-size: 20px;">VISUALIZZA I TUOI DATI</p>
-
-<table width="100%">
+<table style="width:100%">
     <tr>
-        <td width="25%">
-            <form >
-                <div id="check">
-                    <div id="label"  style="margin-left: 5%"> <p>Isciviti all’attività 1</p> <img src="mypage.jpg" height="120" width="120" style=" margin-left: 35%;"></p></div>
-                </div>
-                <br>
-                <div id="check1">
-                    <div id="label1"  style="margin-left: 5%"> <p>Isciviti all’attività 1</p> <img src="mypage.jpg" height="120" width="120" style=" margin-left: 35%;"></p></div>
-                </div><br>
-                <div id="check2">
-                    <div id="label2"  style="margin-left: 5%"> <p>Isciviti all’attività 1</p> <img src="mypage.jpg" height="120" width="120" style=" margin-left: 35%;"></p></div>
-                </div>
-
-            </form>
+        <td style="width:60%">
+            <div class="check">
+                <div class="label"> <p>Clicca e iscriviti all’attività "adotta una tartaruga"</p> <img src="../../../../../../../xampp/htdocs/img/att1.jpg" height="120" width="155" style=" margin-left: 35%;"></div>
+            </div>
+            <br>
+            <div class="check">
+                <div class="label"> <p>Clicca e iscriviti all’attività "prenditene cura"</p> <img src="../../../../../../../xampp/htdocs/img/att2.jpg" height="120" width="155" style=" margin-left: 35%;"></div>
+            </div>
+            <br>
+            <div class="check">
+                <div class="label"> <p>Clicca e iscriviti all’attività "ripuliamo l'oceano"</p> <img src="../../../../../../../xampp/htdocs/img/att3.png" height="120" width="155" style=" margin-left: 35%;"></div>
+            </div>
         </td>
-        <td width="25%">
+        <td style="width:40%">
             <form>
                 <div>
                     <input type="submit" value="Annulla iscrizione" id="bottone">
@@ -59,10 +45,9 @@
                 <br>
                 <input type="submit" value="Invia">
             </form>
-            <p class="fraseMotivazionalePrivata">Frase motivazionale Frase motivazionale Frase motivazionale Frase motivazionale</p>
+            <div id="fraseMotivazionale" style="background: rgb(255, 255, 255, 0.5); height: 82px; width: 175px; border-radius:5%; padding:10px; margin-top: 85px"> </div>
         </td>
     </tr>
-
 </table>
 <div id="navbar2"></div>
 </body>

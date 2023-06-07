@@ -30,7 +30,6 @@ body {
 }
 
 
-/* barra di homepage, attività e ect*/
 .topnav {
     background-color: #D9D9D9;
     overflow: hidden;
@@ -80,7 +79,7 @@ body {
 
 #volantino {
     background-color:#B4DC7F;
-    margin-top: 95px;
+    margin-top: 85px;
     width: 150px;
     height: 50px;
     font-weight: bold;
@@ -94,10 +93,9 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     background: rgb(255, 255, 255, 0.5);
-    height: 100px;
-    width: 165px;
+    height: 150px;
+    width: 190px;
     text-align: center;
-
 }
 
 
@@ -191,6 +189,7 @@ body {
     width: 100%;
     margin-bottom: 10px;
     height: 20px;
+    color: grey;
 }
 
 
@@ -215,40 +214,21 @@ body {
     width: 100%;
     margin-bottom: 10px;
     resize:none;
+    color: grey;
 }
 
 
 #paragrafo {
-    text-align: center;
-    margin-top: 15%;
+    text-align: left;
+    margin-top: 50px;
 }
 
 
-#check {
+.check {
     margin: 0;
     background-color:#D9D9D9;
     height: auto;
-    width: 40%;
-    margin-top: 2.5%;
-    margin-left: 8%;
-    display: flex;
-    align-items: center;
-}
-#check1 {
-    margin: 0;
-    background-color:#D9D9D9;
-    height: auto;
-    width: 40%;
-    margin-top: 2.5%;
-    margin-left: 8%;
-    display: flex;
-    align-items: center;
-}
-#check2 {
-    margin: 0;
-    background-color:#D9D9D9;
-    height: auto;
-    width: 40%;
+    width: 350px;
     margin-top: 2.5%;
     margin-left: 8%;
     display: flex;
@@ -264,23 +244,16 @@ body {
 }
 
 
-#label {
+.label {
     display: flex;
     align-items: center;
-}
-#label1 {
-    display: flex;
-    align-items: center;
-}
-#label2 {
-    display: flex;
-    align-items: center;
+    margin-left: 5%
 }
 
 
 #aderente {
     margin: 0;
-    margin-top: 50px;
+    margin-top: 70px;
     left: 50%;
     background-color:#D9D9D9;
     height: 100px;
@@ -298,16 +271,7 @@ body {
 }
 
 
-.fraseMotivazionale {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 40%;
-    height: 40%;
-    margin-top: 95px;
-    background-color: ghostwhite;
-    padding: 10px;
-}
+
 .fraseMotivazionaleChiSiamo {
     display: block;
     margin-left: auto;
@@ -315,8 +279,10 @@ body {
     width: 40%;
     height: 40%;
     margin-top: 45px;
-    background-color: white;
+    /*background-color: #EFCFB1;*/
+    background: rgba(239, 207, 177, 0.8);
     padding: 10px;
+    border-radius:5%;
 }
 
 
@@ -340,12 +306,12 @@ body {
     font-family: Calibri;
 }
 
+
 #form{
     width:35%;
     margin-top: 5%;
     margin-left: auto;
     margin-right: auto;
-
 }
 
 
@@ -353,8 +319,10 @@ body {
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
+    width: 100%
 }
+
+
 .zoomye {
     width:70%;
     display: block;
@@ -375,6 +343,6 @@ body {
     width: 40%;
     height: 40%;
     margin-top: 95px;
-    background-color: ghostwhite;
+    background: rgba(239, 207, 177, 0.7);
     padding: 10px;
 }
