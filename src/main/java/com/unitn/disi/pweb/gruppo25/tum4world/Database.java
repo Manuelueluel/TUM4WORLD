@@ -1,18 +1,19 @@
 package com.unitn.disi.pweb.gruppo25.tum4world;
 
+import java.io.File;
 import java.sql.*;
 
 public class Database {
     private static Database instance;
-    private final Connection connection;
-    private final String URL = "jdbc:derby://localhost:1527/TUM4WORLD;create=true";
+    private Connection connection;
+    private final String URL_CREATE = "jdbc:derby://localhost:1527/TUM4WORLD;create=true;";
     private final String USER = "admin";
     private final String PASSWORD = "25Adm1n!";
 
     private Database() {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
-            this.connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            this.connection = DriverManager.getConnection(URL_CREATE, USER, PASSWORD);
 
         } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
@@ -29,7 +30,6 @@ public class Database {
     public Connection getConnection(){
         return this.connection;
     }
-
 
     public boolean tableExist( String tableName) {
         boolean exist = false;
