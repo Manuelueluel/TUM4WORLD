@@ -29,7 +29,7 @@ public class UtenteController extends HttpServlet {
 
 
         // Recupero utente con username=param
-        String jsonUtente = utenteService.getUtenteByUsername(param);
+        String jsonUtente = utenteService.getUtenteJsonByUsername(param);
 
         if (jsonUtente.equals("") || jsonUtente == null) { //Caso di errore
             response.setStatus(404);

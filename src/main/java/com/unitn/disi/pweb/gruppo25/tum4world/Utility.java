@@ -5,9 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class Utility {
-    public static void print(String string) {
-        System.out.println(string);
-    }
 
     /**
      * Dato l'instance di una classe ottengo i metodi getter, e tramite quelli vi costruisco un oggetto JSON.
@@ -71,5 +68,9 @@ public class Utility {
         String fieldName = getterName.substring(3);
         fieldName = Character.toLowerCase(fieldName.charAt(0)) + fieldName.substring(1);
         return fieldName;
+    }
+
+    public static boolean isUsernameValid(String username){
+        return username != null && !username.isEmpty();
     }
 }

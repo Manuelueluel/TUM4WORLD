@@ -3,4 +3,85 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
+
+    <!-- Filtri autenticazione e area privata -->
+    <filter>
+        <filter-name>AmministratoreFilter</filter-name>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.AmministratoreFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AderenteFilter</filter-name>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.AderenteFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>SimpatizzanteFilter</filter-name>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.SimpatizzanteFilter</filter-class>
+    </filter>
+    <!--
+    <filter>
+        <filter-name>AutenticazioneFilter</filter-name>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.AutenticazioneFilter</filter-class>
+    </filter>
+    -->
+    <!--
+    <filter>
+        <filter-name>AmministratoreFilter</filter-name>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.AmministratoreFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>AderenteFilter</filter-name>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.AderenteFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>SimpatizzanteFilter</filter-name>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.SimpatizzanteFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>AmministratoreFilter</filter-name>
+        <url-pattern>/privata/amministratore.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AderenteFilter</filter-name>
+        <url-pattern>/privata/aderente.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SimpatizzanteFilter</filter-name>
+        <url-pattern>/privata/simpatizzante.html</url-pattern>
+    </filter-mapping>
+    -->
+    <!--
+    <filter-mapping>
+        <filter-name>AutenticazioneFilter</filter-name>
+        <url-pattern>/privata/*</url-pattern>
+        <servlet-name>LoginServlet</servlet-name>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    -->
+
+    <filter-mapping>
+        <filter-name>AmministratoreFilter</filter-name>
+        <url-pattern>/privata/amministratore.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>AderenteFilter</filter-name>
+        <url-pattern>/privata/aderente.html</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>SimpatizzanteFilter</filter-name>
+        <url-pattern>/privata/simpatizzante.html</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>com.unitn.disi.pweb.gruppo25.tum4world.controller.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
 </web-app>

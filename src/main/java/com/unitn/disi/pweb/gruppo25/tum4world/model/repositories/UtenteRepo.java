@@ -56,6 +56,11 @@ public class UtenteRepo {
             TABLE_UTENTI + " WHERE " +
             COLUMN_USERNAME + " = ?";
 
+    public final static String SELECT_BY_USERNAME_AND_PASSWORD = "SELECT * FROM " +
+            TABLE_UTENTI + " WHERE " +
+            COLUMN_USERNAME + " =? AND " +
+            COLUMN_PASSWORD + " =? ";
+
     private final Database database;
 
     public UtenteRepo() {
@@ -64,7 +69,7 @@ public class UtenteRepo {
 
     public void createTableUtenti() {
         //Se la table Utenti non esiste, la creo
-        if ( !database.tableExist(TABLE_UTENTI)) {
+        if (!database.tableExist(TABLE_UTENTI)) {
             try {
                 Statement statement = database.getConnection().createStatement();
                 statement.executeUpdate(CREATE_TABLE);
@@ -73,23 +78,46 @@ public class UtenteRepo {
             }
 
             //Preregistro l'utente admin
-            Utente admin = new Utente();
-            admin.setNome("admin");
-            admin.setCognome("admin");
-            admin.setEmail("admin@tum4world.com");
-            admin.setNascita( LocalDate.parse("1900-01-01"));
-            admin.setUsername("admin");
-            admin.setPassword("25Adm1n!");
-            admin.setTel("0000000000");
-            admin.setRuolo(0);
+            Utente utente = new Utente();
+            utente.setNome("admin");
+            utente.setCognome("admin");
+            utente.setEmail("admin@tum4world.com");
+            utente.setNascita(LocalDate.parse("1900-01-01"));
+            utente.setUsername("admin");
+            utente.setPassword("25Adm1n!");
+            utente.setTel("0000000000");
+            utente.setRuolo(Utente.RUOLO_AMMINISTRATORE);
+            insertUtente(utente);
 
-            insertUtente(admin);
+            //Preregistro utente aderente per testing
+            utente = new Utente();
+            utente.setNome("aderente");
+            utente.setCognome("aderente");
+            utente.setEmail("aderente@tum4world.com");
+            utente.setNascita(LocalDate.parse("1900-01-01"));
+            utente.setUsername("aderente");
+            utente.setPassword("25Adm1n!");
+            utente.setTel("0000000000");
+            utente.setRuolo(Utente.RUOLO_ADERENTE);
+            insertUtente(utente);
+
+            //Preregistro utente simpatizzante per testing
+            utente = new Utente();
+            utente.setNome("simpatizzante");
+            utente.setCognome("simpatizzante");
+            utente.setEmail("simpatizzante@tum4world.com");
+            utente.setNascita(LocalDate.parse("1900-01-01"));
+            utente.setUsername("simpatizzante");
+            utente.setPassword("25Adm1n!");
+            utente.setTel("0000000000");
+            utente.setRuolo(Utente.RUOLO_SIMPATIZZANTE);
+            insertUtente(utente);
         }
     }
 
     public void insertUtente(Utente utente) {
         //Stringa vuota utente non trovato con tale username, altrimenti già esistente
-        if ( getUtenteByUsername(utente.getUsername()).isEmpty()) {
+        if (getUtenteJsonByUsername(utente.getUsername()).isEmpty()) {
 
             try {
                 PreparedStatement preparedStatement = this.database.getConnection().prepareStatement(INSERT_UTENTE);
@@ -115,14 +143,13 @@ public class UtenteRepo {
     }
 
     public String getAllUtenti() {
-
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
 
         try {
-            Statement statement = this.database.getConnection().createStatement( ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            Statement statement = this.database.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = statement.executeQuery(SELECT_ALL_UTENTI);
-            while (rs.next()){
+            while (rs.next()) {
                 Utente utente = new Utente();
                 utente.setNome(rs.getString(COLUMN_NOME));
                 utente.setCognome(rs.getString(COLUMN_COGNOME));
@@ -144,8 +171,7 @@ public class UtenteRepo {
         return stringBuilder.append("]").toString();
     }
 
-
-    public String getUtenteByUsername(String username) {
+    public String getUtenteJsonByUsername(String username) {
         StringBuilder stringBuilder = new StringBuilder();
 
         try {
@@ -172,6 +198,59 @@ public class UtenteRepo {
         }
 
         return stringBuilder.toString();
+    }
+
+    public Utente getUtenteByUsername(String username) {
+        Utente utente = null;
+
+        try {
+            PreparedStatement preparedStatement = this.database.getConnection().prepareStatement(SELECT_BY_USERNAME);
+            preparedStatement.setString(1, username);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                utente = new Utente();
+                utente.setNome(rs.getString(COLUMN_NOME));
+                utente.setCognome(rs.getString(COLUMN_COGNOME));
+                utente.setNascita(rs.getDate(COLUMN_NASCITA).toLocalDate());
+                utente.setEmail(rs.getString(COLUMN_EMAIL));
+                utente.setTel(rs.getString(COLUMN_TEL));
+                utente.setRuolo(rs.getInt(COLUMN_RUOLO));
+                utente.setUsername(rs.getString(COLUMN_USERNAME));
+                utente.setPassword(rs.getString(COLUMN_PASSWORD));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return utente;
+    }
+
+    public Utente getUtenteByUsernameAndPassword(String username, String password) {
+        Utente utente = null;
+
+        try {
+            PreparedStatement preparedStatement = this.database.getConnection().prepareStatement(SELECT_BY_USERNAME_AND_PASSWORD);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                utente = new Utente();
+                utente.setNome(rs.getString(COLUMN_NOME));
+                utente.setCognome(rs.getString(COLUMN_COGNOME));
+                utente.setNascita(rs.getDate(COLUMN_NASCITA).toLocalDate());
+                utente.setEmail(rs.getString(COLUMN_EMAIL));
+                utente.setTel(rs.getString(COLUMN_TEL));
+                utente.setRuolo(rs.getInt(COLUMN_RUOLO));
+                utente.setUsername(rs.getString(COLUMN_USERNAME));
+                utente.setPassword(rs.getString(COLUMN_PASSWORD));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return utente;
     }
 
 }

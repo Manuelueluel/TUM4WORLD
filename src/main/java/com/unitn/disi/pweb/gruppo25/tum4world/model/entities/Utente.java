@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Utente implements Serializable {
+    public final static int RUOLO_AMMINISTRATORE  = 0;
+    public final static int RUOLO_ADERENTE = 1;
+    public final static int RUOLO_SIMPATIZZANTE = 2;
 
     private int id;
     private String nome;
@@ -12,7 +15,7 @@ public class Utente implements Serializable {
     private LocalDate nascita;
     private String email;
     private String tel;
-    private int ruolo;
+    private int ruolo;  //0=amministratore, 1=aderente, 2=simpatizzante
     private String username;
     private String password;
 
