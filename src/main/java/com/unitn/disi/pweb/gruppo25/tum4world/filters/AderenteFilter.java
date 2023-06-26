@@ -24,8 +24,6 @@ public class AderenteFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
-        System.out.println("ADERENTE FILTER----------------");
-
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(false);
@@ -34,7 +32,6 @@ public class AderenteFilter implements Filter {
         int ruoloSession = Utente.RUOLO_ADERENTE;
 
         if (session == null) {
-            System.out.println("Session == null");
             httpResponse.sendError( javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED);
 
         }else{
@@ -42,14 +39,10 @@ public class AderenteFilter implements Filter {
             utente = utenteService.getUtenteByUsername(username);
             ruoloSession = (int) session.getAttribute("ruolo");
 
-            System.out.println("username=" + username + "\nruolo= " + ruoloSession + "\nutente= " + utente);
-            System.out.println("session = "+session);
             if (utente != null && Utility.isUsernameValid(username) && isRuoloValid(ruoloSession) && isRuoloValid(utente.getRuolo())) {
-                System.out.println("chain"+ "\n-----------------");
                 chain.doFilter(httpRequest, httpResponse);
 
             }else {
-                System.out.println("error"+ "\n-----------------");
                 httpResponse.sendError( javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED);
             }
         }

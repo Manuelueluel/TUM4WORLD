@@ -28,30 +28,24 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         Utente utente = utenteService.getUtenteByUsernameAndPassword(username, password);
-        System.out.println("LoginServlet---------------------\n"+utente);
 
         HttpSession session = request.getSession(false);
 
         if(utente == null) {   //Utente non trovato
-            System.out.println("utente == null");
             response.sendError( HttpServletResponse.SC_UNAUTHORIZED);
 
         } else if (session == null) {   //Utente trovato ma senza session
-            System.out.println("session == null => allora creo session");
-
             session = request.getSession(true);
             session.setMaxInactiveInterval(SESSION_MAX_INACTIVE);   //durata massima session inattiva 1 minuto
-            System.out.println("session = "+session);
             reindirizza(utente, session, response, request);
 
         }else {     //Utente trovato con session
 
             //Ruolo dell'utente differente dal ruolo che è presente nella sessione
             if (utente.getRuolo() != (int) session.getAttribute("ruolo")) {
-                System.out.println("RUOLO DIFFERENTE"+utente.getRuolo()+" "+(int) session.getAttribute("ruolo"));
                 response.sendError( javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED);
+
             } else {
-                System.out.println("STESSO RUOLO "+utente.getRuolo()+" "+(int) session.getAttribute("ruolo"));
                 reindirizza(utente, session, response, request);
             }
         }

@@ -27,7 +27,6 @@ public class UtenteController extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-
         // Recupero utente con username=param
         String jsonUtente = utenteService.getUtenteJsonByUsername(param);
 
