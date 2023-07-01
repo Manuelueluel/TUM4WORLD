@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UtenteRepo {
 
@@ -76,7 +78,7 @@ public class UtenteRepo {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-
+            //TODO hanno tutti gli stessi id?
             //Preregistro l'utente admin
             Utente utente = new Utente();
             utente.setNome("admin");
@@ -115,10 +117,10 @@ public class UtenteRepo {
         }
     }
 
-    public void insertUtente(Utente utente) {
-        //Stringa vuota utente non trovato con tale username, altrimenti già esistente
-        if (getUtenteJsonByUsername(utente.getUsername()).isEmpty()) {
-
+    public boolean insertUtente(Utente utente) {
+        //Null utente non trovato, non null trovato
+        if (getUtenteByUsername(utente.getUsername()) == null) {
+            System.out.println("UTENTE REPO.INSERT utente con tale username non trovato, insert nuovo utente...");
             try {
                 PreparedStatement preparedStatement = this.database.getConnection().prepareStatement(INSERT_UTENTE);
 
@@ -136,21 +138,23 @@ public class UtenteRepo {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
+            return true;
 
         } else {
-            //Utente già esistente con tale username
+           return false;
         }
     }
 
-    public String getAllUtenti() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
+    public List<Utente> getAllUtenti() {
+        ArrayList<Utente> lista = null;
 
         try {
             Statement statement = this.database.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet rs = statement.executeQuery(SELECT_ALL_UTENTI);
+            lista = new ArrayList<>();
             while (rs.next()) {
                 Utente utente = new Utente();
+                utente.setId(rs.getInt(COLUMN_ID));
                 utente.setNome(rs.getString(COLUMN_NOME));
                 utente.setCognome(rs.getString(COLUMN_COGNOME));
                 utente.setNascita(rs.getDate(COLUMN_NASCITA).toLocalDate());
@@ -160,44 +164,12 @@ public class UtenteRepo {
                 utente.setUsername(rs.getString(COLUMN_USERNAME));
                 utente.setPassword(rs.getString(COLUMN_PASSWORD));
 
-                stringBuilder.append(Utility.toJSON(utente));
-                if (!rs.isLast()) {
-                    stringBuilder.append(",");
-                }
+                lista.add(utente);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return stringBuilder.append("]").toString();
-    }
-
-    public String getUtenteJsonByUsername(String username) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        try {
-            PreparedStatement preparedStatement = this.database.getConnection().prepareStatement(SELECT_BY_USERNAME);
-            preparedStatement.setString(1, username);
-
-            ResultSet rs = preparedStatement.executeQuery();
-
-            while (rs.next()) {
-                Utente utente = new Utente();
-                utente.setNome(rs.getString(COLUMN_NOME));
-                utente.setCognome(rs.getString(COLUMN_COGNOME));
-                utente.setNascita(rs.getDate(COLUMN_NASCITA).toLocalDate());
-                utente.setEmail(rs.getString(COLUMN_EMAIL));
-                utente.setTel(rs.getString(COLUMN_TEL));
-                utente.setRuolo(rs.getInt(COLUMN_RUOLO));
-                utente.setUsername(rs.getString(COLUMN_USERNAME));
-                utente.setPassword(rs.getString(COLUMN_PASSWORD));
-
-                stringBuilder.append(Utility.toJSON(utente));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-        return stringBuilder.toString();
+        return lista;
     }
 
     public Utente getUtenteByUsername(String username) {

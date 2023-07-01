@@ -13,7 +13,6 @@ public class UtentiController extends HttpServlet {
 
     private UtenteService utenteService;
 
-
     @Override
     public void init() throws ServletException {
         this.utenteService = new UtenteService();
@@ -26,7 +25,7 @@ public class UtentiController extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         // Recupero utenti
-        String jsonUtenti = utenteService.getAllUtenti();;
+        String jsonUtenti = utenteService.getAllUtentiJson();;
 
         // Scrittura del JSON nella risposta
         PrintWriter writer = response.getWriter();

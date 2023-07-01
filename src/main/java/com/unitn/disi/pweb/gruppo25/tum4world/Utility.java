@@ -3,7 +3,12 @@ package com.unitn.disi.pweb.gruppo25.tum4world;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+/**
+ * Classe di metodi statici che vengono riutilizzati più volte nella web app
+ */
 public class Utility {
 
     /**
@@ -72,5 +77,45 @@ public class Utility {
 
     public static boolean isUsernameValid(String username){
         return username != null && !username.isEmpty();
+    }
+
+    /**
+     * Signin pagina 2 del pdf
+     * "la password deve essere lunga 8 caratteri, deve contenere la prima lettera
+     * dei nomi propri di ciascuno di voi, almeno un carattere numerico,
+     * un carattere maiuscolo e un carattere tra $, ! e ? "
+     * Esempio pw valida MIGA$1al
+     * @param password
+     * @return true password valida, false altrimenti
+     */
+    public static boolean isPasswordValid(String password) {
+        if( password.length() != 8)     return false;   //La password deve essere lunga 8 char
+        //Deve contenere le iniziali del nome di ognuno di noi
+        if( !password.contains("M") && !password.contains("m"))    return false;
+        if( !password.contains("I") && !password.contains("i"))    return false;
+        if( !password.contains("G") && !password.contains("g"))    return false;
+        if( !password.contains("A") && !password.contains("a"))    return false;
+        //Espressione regex per trovare una occorrenza tra $ ! ?
+        String pattern = "[$!\\?]";
+        Pattern regex = Pattern.compile(pattern);
+        Matcher matcher = regex.matcher(password);
+        if( !matcher.find()){
+            return false;
+        }
+        //Espressione regex per trovare una occorrenza un carattere numerico
+        pattern = "[\\d]*";
+        regex = Pattern.compile(pattern);
+        matcher = regex.matcher(password);
+        if( !matcher.find()){
+            return false;
+        }
+        //Espressione regex per trovare una occorrenza un carattere maiuscolo
+        pattern = "[A-Z]*";
+        regex = Pattern.compile(pattern);
+        matcher = regex.matcher(password);
+        if( !matcher.find()){
+            return false;
+        }
+        return true;
     }
 }
