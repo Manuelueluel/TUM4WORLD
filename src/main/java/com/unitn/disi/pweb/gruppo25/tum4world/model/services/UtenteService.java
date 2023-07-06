@@ -57,7 +57,13 @@ public class UtenteService {
         if (utente == null) {
             return false;
         }
-        System.out.println("service utente");
         return utenteRepo.insertUtente(utente);
+    }
+
+    public boolean deleteUtente(String username) {
+        if( username == null || username.equals("")){
+            return false;
+        }
+        return utenteRepo.deleteUtente(username);
     }
 }

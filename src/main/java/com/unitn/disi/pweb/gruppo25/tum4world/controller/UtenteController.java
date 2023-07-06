@@ -66,15 +66,6 @@ public class UtenteController extends HttpServlet {
         String ruolo = request.getParameter("ruolo");
         PrintWriter writer = response.getWriter();
 
-        System.out.println("fname= "+fname);
-        System.out.println("lname= "+lname);
-        System.out.println("data-nascita= "+data_nascita);
-        System.out.println("email= "+email);
-        System.out.println("numero-cellulare= "+numero_cellulare);
-        System.out.println("username= "+username);
-        System.out.println("password= "+password);
-        System.out.println("ruolo= "+ruolo);
-
         Utente utente = utenteService.getUtenteByUsername(username);    //Username già esistente?
 
         //Da qui in poi controllo campi ricevuti
@@ -155,6 +146,16 @@ public class UtenteController extends HttpServlet {
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO usato per la cancellazione di un utente già esistente, basta lo username come parametro
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
+        String username = req.getParameter("username");
+
+        if (utenteService.deleteUtente(username)) {
+            resp.setStatus(HttpServletResponse.SC_OK);
+
+        } else {
+            resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        }
     }
 }

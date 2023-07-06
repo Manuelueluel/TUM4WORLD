@@ -63,6 +63,10 @@ public class UtenteRepo {
             COLUMN_USERNAME + " =? AND " +
             COLUMN_PASSWORD + " =? ";
 
+    public final static String DELETE_UTENTE = "DELETE FROM " +
+            TABLE_UTENTI + " WHERE " +
+            COLUMN_USERNAME + " =?";
+
     private final Database database;
 
     public UtenteRepo() {
@@ -78,7 +82,7 @@ public class UtenteRepo {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            //TODO hanno tutti gli stessi id?
+
             //Preregistro l'utente admin
             Utente utente = new Utente();
             utente.setNome("admin");
@@ -120,7 +124,7 @@ public class UtenteRepo {
     public boolean insertUtente(Utente utente) {
         //Null utente non trovato, non null trovato
         if (getUtenteByUsername(utente.getUsername()) == null) {
-            System.out.println("UTENTE REPO.INSERT utente con tale username non trovato, insert nuovo utente...");
+
             try {
                 PreparedStatement preparedStatement = this.database.getConnection().prepareStatement(INSERT_UTENTE);
 
@@ -225,4 +229,22 @@ public class UtenteRepo {
         return utente;
     }
 
+    public boolean deleteUtente(String username) {
+        Utente utente = getUtenteByUsername(username);
+
+        if (utente != null) {
+            try {
+                PreparedStatement preparedStatement = this.database.getConnection().prepareStatement(DELETE_UTENTE);
+                preparedStatement.setString(1, username);
+                preparedStatement.executeUpdate();
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return true;
+
+        } else {
+            return false;
+        }
+    }
 }
