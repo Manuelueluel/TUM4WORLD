@@ -3,12 +3,16 @@ package com.unitn.disi.pweb.gruppo25.tum4world.model.repositories;
 
 import com.unitn.disi.pweb.gruppo25.tum4world.Database;
 import com.unitn.disi.pweb.gruppo25.tum4world.model.entities.Donazione;
+import com.unitn.disi.pweb.gruppo25.tum4world.model.entities.Utente;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-public class DonazioneRepo {
+public class DonazioniRepo {
 
     public final static String TABLE_DONAZIONI = "DONAZIONI";
     public final static String COLUMN_ID = "ID";
@@ -28,8 +32,10 @@ public class DonazioneRepo {
             COLUMN_DATA + "," +
             COLUMN_QUANTITA + ") VALUES ( ?, ?)";
 
+    public final static String SELECT_ALL_DONAZIONI = "SELECT * FROM " + TABLE_DONAZIONI;
+
     private final Database database;
-    public DonazioneRepo() {
+    public DonazioniRepo() {
         database = Database.getInstance();
     }
 
@@ -56,5 +62,26 @@ public class DonazioneRepo {
         }catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public List<Donazione> getAllDonazioni(){
+        ArrayList<Donazione> lista = null;
+
+        try {
+            Statement statement = this.database.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            ResultSet rs = statement.executeQuery(SELECT_ALL_DONAZIONI);
+            lista = new ArrayList<>();
+            while (rs.next()) {
+                Donazione donazione = new Donazione();
+                donazione.setId(rs.getInt(COLUMN_ID));
+                donazione.setData(rs.getDate(COLUMN_DATA).toLocalDate());
+                donazione.setQuantita(rs.getInt(COLUMN_QUANTITA));
+
+                lista.add(donazione);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return lista;
     }
 }

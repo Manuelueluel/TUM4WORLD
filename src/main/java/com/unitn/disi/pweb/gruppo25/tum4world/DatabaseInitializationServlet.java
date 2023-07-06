@@ -1,6 +1,6 @@
 package com.unitn.disi.pweb.gruppo25.tum4world;
 
-import com.unitn.disi.pweb.gruppo25.tum4world.model.repositories.DonazioneRepo;
+import com.unitn.disi.pweb.gruppo25.tum4world.model.repositories.DonazioniRepo;
 import com.unitn.disi.pweb.gruppo25.tum4world.model.repositories.UtenteRepo;
 
 import javax.servlet.ServletException;
@@ -14,18 +14,18 @@ import javax.servlet.http.HttpServlet;
 public class DatabaseInitializationServlet extends HttpServlet {
 
     private UtenteRepo utenteRepo;
-    private DonazioneRepo donazioneRepo;
+    private DonazioniRepo donazioniRepo;
 
     @Override
     public void init() throws ServletException {
         this.utenteRepo = new UtenteRepo();
-        this.donazioneRepo = new DonazioneRepo();
+        this.donazioniRepo = new DonazioniRepo();
 
         //Creo tabella utenti se non esiste
         utenteRepo.createTableUtenti();
 
         //Crea tabella donazioni se non esiste
-        donazioneRepo.createTableDonazioni();
+        donazioniRepo.createTableDonazioni();
 
     }
 }

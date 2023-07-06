@@ -1,12 +1,8 @@
 package com.unitn.disi.pweb.gruppo25.tum4world.controller;
 
-import com.unitn.disi.pweb.gruppo25.tum4world.model.entities.Utente;
-import com.unitn.disi.pweb.gruppo25.tum4world.model.repositories.DonazioneRepo;
-import com.unitn.disi.pweb.gruppo25.tum4world.model.repositories.UtenteRepo;
 import com.unitn.disi.pweb.gruppo25.tum4world.model.services.UtenteService;
 
 import java.io.*;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
