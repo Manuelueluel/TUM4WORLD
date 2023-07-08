@@ -4,8 +4,12 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
     <session-config>
-        <session-timeout>1</session-timeout>
+        <session-timeout>30</session-timeout>
     </session-config>
 
     <!-- Filtri autenticazione e area privata -->
@@ -60,6 +64,24 @@
     <servlet-mapping>
         <servlet-name>UtentiController</servlet-name>
         <url-pattern>/utenti</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DonazioniController</servlet-name>
+        <servlet-class>com.unitn.disi.pweb.gruppo25.tum4world.controller.DonazioniController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DonazioniController</servlet-name>
+        <url-pattern>/donazioni</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FraseMotivazionaleController</servlet-name>
+        <servlet-class>com.unitn.disi.pweb.gruppo25.tum4world.controller.FraseMotivazionaleController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FraseMotivazionaleController</servlet-name>
+        <url-pattern>/frase</url-pattern>
     </servlet-mapping>
 
 </web-app>
