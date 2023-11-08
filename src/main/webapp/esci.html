@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="randomQuotes.js"></script>
     <script src="loadNavbars.js"></script>
+    <script src="counter.js"></script>
     <script>
         const delay = ms => new Promise(res => setTimeout(res, ms));
         const backToIndexAfterSe = async () => {
@@ -21,12 +22,17 @@
             await delay(1000);
             window.location.href = 'index.html';
         };
+
+        window.addEventListener('pageshow', () => {
+            backToIndexAfterSe();
+            incrementCounter();
+        });
     </script>
 </head>
 
 
 
-<body onload="backToIndexAfterSe()">
+<body>
     <div id="navbar"></div>
     <div id="visualizza">
         <p id="testoFade" style="margin-top: 20%; text-align: center; opacity: 100%";>Complimenti!  Il logout è avvenuto con successo. Verrai reindirizzato alla homepage in 4...

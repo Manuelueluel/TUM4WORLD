@@ -1,5 +1,6 @@
 package com.unitn.disi.pweb.gruppo25.tum4world;
 
+import com.unitn.disi.pweb.gruppo25.tum4world.model.repositories.CounterRepo;
 import com.unitn.disi.pweb.gruppo25.tum4world.model.repositories.DonazioniRepo;
 import com.unitn.disi.pweb.gruppo25.tum4world.model.repositories.FraseMotivazionaleRepo;
 import com.unitn.disi.pweb.gruppo25.tum4world.model.repositories.UtenteRepo;
@@ -17,12 +18,14 @@ public class DatabaseInitializationServlet extends HttpServlet {
     private UtenteRepo utenteRepo;
     private DonazioniRepo donazioniRepo;
     private FraseMotivazionaleRepo fraseMotivazionaleRepo;
+    private CounterRepo counterRepo;
 
     @Override
     public void init() throws ServletException {
         this.utenteRepo = new UtenteRepo();
         this.donazioniRepo = new DonazioniRepo();
         this.fraseMotivazionaleRepo = new FraseMotivazionaleRepo();
+        this.counterRepo = new CounterRepo();
 
         //Creo tabella utenti se non esiste
         utenteRepo.createTableUtenti();
@@ -32,6 +35,9 @@ public class DatabaseInitializationServlet extends HttpServlet {
 
         //Crea file json e viene popolato da alcune frasi motivazionali di default
         fraseMotivazionaleRepo.createFileAndPopolate();
+
+        //Crea tabella contatori
+        counterRepo.createTableCounter();
 
     }
 }

@@ -7,12 +7,16 @@
   <title>Chi siamo</title>
   <link rel="stylesheet" href="style.css">
 
+  <script src="randomQuotes.js"></script>
+  <script src="loadNavbars.js"></script>
+  <script src="counter.js"></script>
+
   <script>
 
     const vettoreFrasi = ["La Tum4World è stata fondata nel 2000 in risposta ai primi studi sui rischi per le tartarughe verdi marine della Grande Barriera Corallina australiana a causa del riscaldamento globale",
-                          "Questa specie è particolarmente vulnerabile alle temperature dell'habitat durante la fase di incubazione delle uova, poiché il sesso dipende da essa: le temperature più calde producono più femmine",
-                          "A causa del surriscaldamento globale la popolazione maschile delle tartarughe verdi è in declino rapido da oltre due decenni. Il nostro team lavora costantemente sul campo per far schiudere tutte le uova nelle spiagge dove le tartarughe le hanno deposte, ma abbiamo anche costruito un laboratorio dove creiamo le condizioni favorevoli per far nascere un numero equo di tartarughe femmine e maschi da rilasciare in natura",
-                          "In aggiunta alla protezione delle tartarughe verdi, la Tum4World si impegna a proteggere la Grande Barriera Corallina, l'habitat naturale delle nostre amiche tartarughe"];
+      "Questa specie è particolarmente vulnerabile alle temperature dell'habitat durante la fase di incubazione delle uova, poiché il sesso dipende da essa: le temperature più calde producono più femmine",
+      "A causa del surriscaldamento globale la popolazione maschile delle tartarughe verdi è in declino rapido da oltre due decenni. Il nostro team lavora costantemente sul campo per far schiudere tutte le uova nelle spiagge dove le tartarughe le hanno deposte, ma abbiamo anche costruito un laboratorio dove creiamo le condizioni favorevoli per far nascere un numero equo di tartarughe femmine e maschi da rilasciare in natura",
+      "In aggiunta alla protezione delle tartarughe verdi, la Tum4World si impegna a proteggere la Grande Barriera Corallina, l'habitat naturale delle nostre amiche tartarughe"];
     const vettorePercorsi = ["img/prima.jpg","img/seconda.jpg","img/terza.jpg","img/quarta.jpg"]
     let indice = 0;
 
@@ -38,10 +42,8 @@
       pathDaModificare.src = vettorePercorsi[indice];
     }
 
+    window.addEventListener('pageshow', incrementCounter);
   </script>
-
-  <script src="randomQuotes.js"></script>
-  <script src="loadNavbars.js"></script>
 
 </head>
 

@@ -9,6 +9,7 @@
 
         <script src="randomQuotes.js"></script>
         <script src="loadNavbars.js"></script>
+        <script src="counter.js"></script>
         <script>
             function download_file(fileURL, fileName) {
                 var link = document.createElement('a');
@@ -16,6 +17,8 @@
                 link.download = 'volantino.pdf';
                 link.dispatchEvent(new MouseEvent('click'));
             };
+
+            window.addEventListener('pageshow', incrementCounter);
         </script>
 
     </head>

@@ -11,6 +11,8 @@ public class Counter implements Serializable {
 
     private int contatore;
 
+    private String pagina;
+
     public int getId() {
         return id;
     }
@@ -18,8 +20,6 @@ public class Counter implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
-
 
     public int getContatore() {
         return contatore;
@@ -29,6 +29,13 @@ public class Counter implements Serializable {
         this.contatore = numero;
     }
 
+    public String getPagina() {
+        return this.pagina;
+    }
+
+    public void setPagina(String pagina) {
+        this.pagina = pagina;
+    }
 
     @Override
     public int hashCode() {
