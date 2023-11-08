@@ -41,10 +41,8 @@ public class CounterController extends HttpServlet {
         String pagina = req.getParameter("pagina");
 
         if (counterService.incrementCounter(pagina)) {
-            System.out.println(pagina + " incremento con successo");
             resp.setStatus(HttpServletResponse.SC_OK);
         } else {
-            System.out.println(pagina + " NON incremento con successo");
             resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
