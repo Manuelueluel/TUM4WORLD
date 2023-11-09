@@ -4,7 +4,7 @@
 - [ ] validazione registrazione
 - [ ] grafici area amministratore
 - [ ] collegare le donazioni dal front al backend
-- [ ] mancano le pagine di approfondimento delle attività
+- [x] mancano le pagine di approfondimento delle attività
 - [ ] pagina contatti simulazione invio email, validazione campo email obbligatorio e in caso positivo reindirizzamento alla pagina contattiMessaggio.html
 - [ ] manca il logo dell'associazione nel tab del browser
 - [x] spostare le frasi ispiranti dal frontend al backend
