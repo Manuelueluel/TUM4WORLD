@@ -1,5 +1,6 @@
 package com.unitn.disi.pweb.gruppo25.tum4world.controller;
 
+import com.unitn.disi.pweb.gruppo25.tum4world.Utility;
 import com.unitn.disi.pweb.gruppo25.tum4world.model.entities.Utente;
 import com.unitn.disi.pweb.gruppo25.tum4world.model.services.UtenteService;
 
@@ -11,7 +12,6 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
-    public static final int SESSION_MAX_INACTIVE = 60;  //in secondi
     private UtenteService utenteService;
 
     @Override
@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
             } else { //username valido e password valida
                 if (session == null) {   //Utente trovato ma senza session
                     session = request.getSession(true);
-                    session.setMaxInactiveInterval(SESSION_MAX_INACTIVE);
+                    session.setMaxInactiveInterval(Utility.SESSION_MAX_INACTIVE);
                     redirect(utente, session, response);
 
                 }else {     //Utente trovato con session

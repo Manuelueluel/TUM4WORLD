@@ -1,7 +1,7 @@
 - [x] contatore visite, un contatore per pagina, salvati nel db
 - [ ] header che cambia a seconda se l'utente è loggato o meno, mostrando esci e area privata al posto di registati e login
 - [x] validazione login
-- [ ] logout backend e frontend
+- [x] logout backend e frontend
 - [ ] validazione registrazione
 - [ ] grafici area amministratore
 - [ ] collegare le donazioni dal front al backend

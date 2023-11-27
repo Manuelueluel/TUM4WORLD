@@ -7,9 +7,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Classe di metodi statici che vengono riutilizzati più volte nella web app
+ * Classe di metodi e variabili statici che vengono riutilizzati più volte nella web app
  */
 public class Utility {
+
+    public static final int SESSION_MAX_INACTIVE = 60;  //in secondi
+
 
     /**
      * Dato l'instance di una classe ottengo i metodi getter, e tramite quelli vi costruisco un oggetto JSON.
