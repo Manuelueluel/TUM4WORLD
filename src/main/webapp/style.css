@@ -117,7 +117,7 @@ body {
 }
 
 
-#username-label {
+.username_input {
     font-size: 15px;
     width: 100%;
     margin-bottom: 10px;
@@ -131,7 +131,7 @@ body {
     margin-bottom: 10px;
     height: 20px;
 }
-#password {
+.password_input {
     font-size: 15px;
     width: 100%;
     margin-bottom: 10px;
@@ -345,8 +345,32 @@ body {
     padding: 10px;
 }
 
+.enter_button {
+    background-color:#B4DC7F;
+    width: 80px;
+    height: 30px;
+    margin-top: 30px
+}
+
+.text_error {
+    color: darkred;
+    font-weight: bolder;
+}
+
+.text_center {
+    text-align: center;
+}
+
 .flex {
     display: flex;
+}
+
+.flex_column {
+    flex-direction: column;
+}
+
+.flex_wrap {
+    flex-wrap: wrap;
 }
 
 .flex-grow-1 {

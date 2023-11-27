@@ -9,7 +9,7 @@ function includeHTML(elementId, fileUrl) {
     xhttp.send();
 };
 
-document.addEventListener("DOMContentLoaded", function() {
-    includeHTML("navbar", "navaccesso.html");
-    includeHTML("navbar2", "barrainferiore.html");
-});
+// document.addEventListener("DOMContentLoaded", function() {
+//     includeHTML("navbar", "./navaccesso.html");
+//     includeHTML("navbar2", "./barrainferiore.html");
+// });

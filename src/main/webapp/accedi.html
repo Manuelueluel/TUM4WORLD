@@ -1,41 +1,63 @@
 <!DOCTYPE html> <html>
 
-
-
   <head>
     <meta charset="UTF-8">
-    <title>Registrazione</title>
+    <title>Accesso</title>
     <link rel="stylesheet" href="style.css">
     <script src="loadNavbars.js"></script>
     <script src="randomQuotes.js"></script>
     <script src="counter.js"></script>
     <script>
       window.addEventListener('pageshow', incrementCounter);
+
+      function validateInputs(){
+        var xhttp = new XMLHttpRequest();
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var url = "login";
+
+        xhttp.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+            var resp = JSON.parse(xhttp.response)
+
+            if(resp.success){
+              //Se autenticazione avvenuta con successo si viene reindirizzati alla propria pagina personale
+              window.location.assign(resp.redirectUrl)
+            }else{
+              //In caso di errore viene visualizzato un messaggio nella pagina
+              document.getElementById("error").innerText = resp["25"];
+            }
+          }
+        };
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttp.send("username="+username+"&password="+password);
+      }
     </script>
   </head>
 
-
-
   <body>
     <div id="navbar"></div>
-    <p style="text-align: center; margin-top: 5%; font-size:30px; font-family: Rockwell"> ACCESSO AREA RISERVATA</p>
+    <p style="text-align: center; margin-top: 5%; font-size:30px; font-family: Rockwell">ACCESSO AREA RISERVATA</p>
     <br>
-    <form id="form" action="login" method="POST" style="text-align: center; margin-top: 5%;">
-      <input type="text" id="username-label" name="username" placeholder="username">
-      <br>
-      <br>
-      <input type="text" id="password" name="password" placeholder="password">
-      <br>
-      <br>
-      <a style="text-align: center" href="registrazione.html">Non hai ancora un account? Registrati adesso</a>
-      <br>
-      <input type="submit" value="OK" style="background-color:#B4DC7F; width: 80px; height: 30px; margin-top: 30px">
-    </form>
+
+    <div id="form" style="text-align: center; margin-top: 3%" >
+      <form action="javascript:validateInputs()">
+        <input type="text" class="username_input flex-grow-4" id="username" name="username" placeholder="username">
+        <input type="text" class="password_input flex-grow-4" id="password" name="password" placeholder="password">
+        <a class="flex-grow-4 text_center" href="registrazione.html">Non hai ancora un account? Registrati adesso</a>
+
+        <div style="width:170px; margin-left:auto; margin-right:auto; margin-top:20px">
+          <input type="submit" value="Invia" style="background-color:#B4DC7F; width: 80px; height: 30px;">
+          <input type="reset" value="Pulisci" style="background-color:#B4DC7F; width: 80px; height: 30px;">
+        </div>
+
+        <h3 class="flex-grow-4 text_center text_error" id="error"></h3>
+      </form>
+    </div>
+
     <div id="fraseMotivazionale" class="centratura" style="background: rgb(255, 255, 255, 0.5); height: 60px; width: 30%; border-radius:10%; padding:10px; margin-top: 20px; text-align:center"> </div>
     <div id="navbar2"></div>
   </body>
-
-
-
 
 </html>

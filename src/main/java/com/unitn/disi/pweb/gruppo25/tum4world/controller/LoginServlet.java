@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(name = "LoginServlet", value = "/login")
 public class LoginServlet extends HttpServlet {
@@ -27,28 +28,40 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        Utente utente = utenteService.getUtenteByUsernameAndPassword(username, password);
-
         HttpSession session = request.getSession(false);
+        Utente utenteByUsername = utenteService.getUtenteByUsername(username);
+        Utente utente = null;
+        PrintWriter writer = response.getWriter();
 
-        if(utente == null) {   //Utente non trovato
-            response.sendError( HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-        } else if (session == null) {   //Utente trovato ma senza session
-            session = request.getSession(true);
-            session.setMaxInactiveInterval(SESSION_MAX_INACTIVE);   //durata massima session inattiva 1 minuto
-            reindirizza(utente, session, response, request);
+        if (utenteByUsername == null){ // username non valido
+            writer.print("{\"25\":\"Username non valido\", \"success\":false}");
 
-        }else {     //Utente trovato con session
+        } else {
+            utente = utenteService.getUtenteByUsernameAndPassword(username, password);
 
-            //Ruolo dell'utente differente dal ruolo che è presente nella sessione
-            if (utente.getRuolo() != (int) session.getAttribute("ruolo")) {
-                response.sendError( javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED);
+            if (utente == null) { //username valido ma password no
+                writer.print("{\"25\":\"Password non valida\", \"success\":false}");
 
-            } else {
-                reindirizza(utente, session, response, request);
+            } else { //username valido e password valida
+                if (session == null) {   //Utente trovato ma senza session
+                    session = request.getSession(true);
+                    session.setMaxInactiveInterval(SESSION_MAX_INACTIVE);
+                    redirect(utente, session, response);
+
+                }else {     //Utente trovato con session
+                    //Ruolo dell'utente differente dal ruolo che è presente nella sessione
+                    if (utente.getRuolo() != (int) session.getAttribute("ruolo")) {
+                        writer.print("{\"25\":\"Ruolo non valido\", \"success\":false}");
+                    } else {
+                        redirect(utente, session, response);
+                    }
+                }
             }
         }
+        writer.flush();
     }
 
     /**
@@ -78,11 +91,47 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("username", utente.getUsername());
                 session.setAttribute("ruolo", Utente.RUOLO_SIMPATIZZANTE);
                 encode = response.encodeRedirectURL("./privata/simpatizzante.html");
+                System.out.println("reidirizza simpatizzante");
                 response.sendRedirect(encode);
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST);
                 break;
         }
+    }
+
+    private void redirect(Utente utente, HttpSession session, HttpServletResponse response) throws IOException {
+        PrintWriter writer = response.getWriter();
+
+        switch (utente.getRuolo()) {
+            case Utente.RUOLO_AMMINISTRATORE:
+                session.setAttribute("username", utente.getUsername());
+                session.setAttribute("ruolo", Utente.RUOLO_AMMINISTRATORE);
+                String encode = response.encodeRedirectURL("./privata/amministratore.html");
+                //response.sendRedirect(encode);
+                writer.print("{\"success\":true, \"redirectUrl\":\""+encode+"\"}");
+                break;
+            case Utente.RUOLO_ADERENTE:
+                session.setAttribute("username", utente.getUsername());
+                session.setAttribute("ruolo", Utente.RUOLO_ADERENTE);
+                encode = response.encodeRedirectURL("./privata/aderente.html");
+                //response.sendRedirect(encode);
+                writer.print("{\"success\":true, \"redirectUrl\":\""+encode+"\"}");
+                break;
+            case Utente.RUOLO_SIMPATIZZANTE:
+                session.setAttribute("username", utente.getUsername());
+                session.setAttribute("ruolo", Utente.RUOLO_SIMPATIZZANTE);
+                encode = response.encodeRedirectURL("./privata/simpatizzante.html");
+                //response.sendRedirect(encode);
+                System.out.println("login encodeRedirectURL "+response.encodeRedirectURL("./privata/simpatizzante.html"));
+                System.out.println("login encodeURL "+response.encodeURL("./privata/simpatizzante.html"));
+                writer.print("{\"success\":true, \"redirectUrl\":\""+encode+"\"}");
+                break;
+            default:
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                writer.print("{\"25\":\"Errore inatteso\", \"success\":false}");
+                break;
+        }
+        writer.flush();
     }
 }

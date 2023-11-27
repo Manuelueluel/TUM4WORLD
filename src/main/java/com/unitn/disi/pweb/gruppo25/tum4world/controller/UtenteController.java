@@ -48,6 +48,15 @@ public class UtenteController extends HttpServlet {
         writer.flush();
     }
 
+    /**
+     * Metodo POST usato per la registrazione di un nuovo utente.
+     * Nella request devono essere presenti tutti i campi richiesti dalla form in
+     * registrazione.html altrimenti viene inviato un messaggio json di errore.
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");

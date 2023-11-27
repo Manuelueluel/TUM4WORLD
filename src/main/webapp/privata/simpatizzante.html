@@ -1,45 +1,68 @@
 <!DOCTYPE html><html lang="en">
 
-
-
 <head>
     <meta charset="UTF-8">
     <title>Pagina: Simpatizzante</title>
     <link rel="stylesheet" href="../style.css">
-    <script src="../loadNavbarsPrivate.js"></script>
     <script src="../randomQuotes.js"></script>
+    <script src="../counter.js"></script>
+    <script>
+        window.addEventListener('pageshow', incrementCounter);
+    </script>
 </head>
 
-
-
 <body>
-<div id="navbar"></div>
-<p style="margin-left: 4%; margin-top: 2%; font-size: 20px;">VISUALIZZA I TUOI DATI</p>
-<table style="width:100%">
-    <tr>
-        <td style="width:60%">
-            <div class="check">
-                <div class="label"> <p>Clicca e iscriviti all’attività "adotta una tartaruga"</p> <img src="../img/att1.jpg" height="120" width="155" style=" margin-left: 35%;"></div>
-            </div>
-            <br>
-            <div class="check">
-                <div class="label"> <p>Clicca e iscriviti all’attività "prenditene cura"</p> <img src="../img/att2.jpg" height="120" width="155" style=" margin-left: 35%;"></div>
-            </div>
-            <br>
-            <div class="check">
-                <div class="label"> <p>Clicca e iscriviti all’attività "ripuliamo l'oceano"</p> <img src="../img/att3.png" height="120" width="155" style=" margin-left: 35%;"></div>
-            </div>
-        </td>
-        <td style="width:40%">
-            <form>
-                <div>
-                    <input type="submit" value="Annulla iscrizione" id="bottone">
+    <div class="topp"><p>TUM4WORLD</p></div>
+    <nav>
+        <div class="topnav">
+            <a href="../index.html">Home Page</a>
+            <a href="../chiSiamo.html">Chi siamo</a>
+            <a href="../attivita.html">Attività</a>
+            <a href="../contatti.html">Contatti</a>
+            <a href="simpatizzante.html">My Page</a>
+            <a href="../esci.html">Esci</a>
+        </div>
+    </nav>
+    <p style="margin-left: 4%; margin-top: 2%; font-size: 20px;">VISUALIZZA I TUOI DATI</p>
+    <table style="width:100%">
+        <tr>
+            <td style="width:60%">
+                <div class="check">
+                    <div class="label"> <p>Clicca e iscriviti all’attività "adotta una tartaruga"</p> <img src="../img/att1.jpg" height="120" width="155" style=" margin-left: 35%;"></div>
                 </div>
-            </form>
-            <div id="fraseMotivazionale" style="background: rgb(255, 255, 255, 0.5); height: 82px; width: 175px; border-radius:5%; padding:10px; margin-top: 85px"> </div>
-        </td>
-    </tr>
-</table>
-<div id="navbar2"></div>
+                <br>
+                <div class="check">
+                    <div class="label"> <p>Clicca e iscriviti all’attività "prenditene cura"</p> <img src="../img/att2.jpg" height="120" width="155" style=" margin-left: 35%;"></div>
+                </div>
+                <br>
+                <div class="check">
+                    <div class="label"> <p>Clicca e iscriviti all’attività "ripuliamo l'oceano"</p> <img src="../img/att3.png" height="120" width="155" style=" margin-left: 35%;"></div>
+                </div>
+            </td>
+            <td style="width:40%">
+                <form>
+                    <div>
+                        <input type="submit" value="Annulla iscrizione" id="bottone">
+                    </div>
+                </form>
+                <div id="fraseMotivazionale" style="background: rgb(255, 255, 255, 0.5); height: 82px; width: 175px; border-radius:5%; padding:10px; margin-top: 85px"> </div>
+            </td>
+        </tr>
+    </table>
+    <nav>
+        <div id = "footer_bar">
+            <table>
+                <tr>
+
+                    <td rowspan="2"> <img src="../img/logo3.png" height="40" width="40"> </td>
+                    <td >TUM4WORLD, via Sommarive 25,</td>
+                <tr>
+                    <td >Trento, 25000, Italia</td>
+                </tr>
+                </tr>
+            </table>
+        </div>
+    </nav>
 </body>
+
 </html>
