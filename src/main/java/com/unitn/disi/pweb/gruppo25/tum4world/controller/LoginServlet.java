@@ -65,42 +65,13 @@ public class LoginServlet extends HttpServlet {
     }
 
     /**
-     * Imposta attributi della session e in base al ruolo dell'utente viene reindirizzato
-     * @param utente    utente da reindirizzare
-     * @param session   in base al ruolo utente impostati attributi "username" e "ruolo"
-     * @param response  in base al ruolo reindirizza alla pagina privata
+     * Reindirizza l'utente alla propria pagina personale in base al proprio ruolo
+     * @param utente
+     * @param session
+     * @param response
      * @throws IOException
-     * @throws ServletException
      */
-    private void reindirizza(Utente utente, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
-        switch (utente.getRuolo()) {
-            case Utente.RUOLO_AMMINISTRATORE:
-                session.setAttribute("username", utente.getUsername());
-                session.setAttribute("ruolo", Utente.RUOLO_AMMINISTRATORE);
-                String encode = response.encodeRedirectURL("./privata/amministratore.html");
-                response.sendRedirect(encode);
-                //request.getRequestDispatcher(encode).forward(request, response);
-                break;
-            case Utente.RUOLO_ADERENTE:
-                session.setAttribute("username", utente.getUsername());
-                session.setAttribute("ruolo", Utente.RUOLO_ADERENTE);
-                encode = response.encodeRedirectURL("./privata/aderente.html");
-                response.sendRedirect(encode);
-                break;
-            case Utente.RUOLO_SIMPATIZZANTE:
-                session.setAttribute("username", utente.getUsername());
-                session.setAttribute("ruolo", Utente.RUOLO_SIMPATIZZANTE);
-                encode = response.encodeRedirectURL("./privata/simpatizzante.html");
-                System.out.println("reidirizza simpatizzante");
-                response.sendRedirect(encode);
-                break;
-            default:
-                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
-                break;
-        }
-    }
-
-    private void redirect(Utente utente, HttpSession session, HttpServletResponse response) throws IOException {
+    private static void redirect(Utente utente, HttpSession session, HttpServletResponse response) throws IOException {
         PrintWriter writer = response.getWriter();
 
         switch (utente.getRuolo()) {
@@ -123,8 +94,6 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("ruolo", Utente.RUOLO_SIMPATIZZANTE);
                 encode = response.encodeRedirectURL("./privata/simpatizzante.html");
                 //response.sendRedirect(encode);
-                System.out.println("login encodeRedirectURL "+response.encodeRedirectURL("./privata/simpatizzante.html"));
-                System.out.println("login encodeURL "+response.encodeURL("./privata/simpatizzante.html"));
                 writer.print("{\"success\":true, \"redirectUrl\":\""+encode+"\"}");
                 break;
             default:

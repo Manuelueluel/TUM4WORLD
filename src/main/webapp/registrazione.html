@@ -1,7 +1,5 @@
 <!DOCTYPE html><html>
 
-
-
 <head>
   <meta charset="UTF-8">
   <title>Contatti</title>
@@ -11,30 +9,80 @@
   <script src="counter.js"></script>
   <script>
     window.addEventListener('pageshow', incrementCounter);
+
+    function validateInputs(){
+      var xhttp = new XMLHttpRequest();
+      var fname = document.getElementById("fname").value;
+      var lname = document.getElementById("lname").value;
+      var data_nascita = document.getElementById("data-nascita-label").value;
+      var numero_cellulare = document.getElementById("numero-cellulare").value;
+      var ruolo = document.getElementById("ruolo").value;
+      var email = document.getElementById("email").value;
+      var username = document.getElementById("username-label").value;
+      var password = document.getElementById("password").value;
+      var password1 = document.getElementById("password1").value;
+      var error = document.getElementById("error");
+      var url = "utente";
+
+      if ( !(password === password1)) {
+        error.innerText = "Le password inserite non coincidono"
+      }else{
+        xhttp.onreadystatechange = function() {
+          if (this.readyState === 4 && this.status === 200) {
+            var resp = JSON.parse(xhttp.response)
+
+            if(resp.success){
+              //Se registrazione avvenuta con successo si viene reindirizzati alla pagina di registrazione confermata
+              window.location.assign(resp.redirectUrl);
+            }else{
+              //In caso di errore viene visualizzato un messaggio nella pagina indicante i cambi errati
+              error.innerText = "I seguenti campi non sono corretti";
+
+              if (resp["25"].length > 1) {
+                for (err of resp["25"]) {
+                  error.innerText += " " + err;
+                }
+              }else{
+                error.innerText = "Il seguente campo non è corretto " + resp["25"];
+              }
+            }
+          }
+        };
+        xhttp.open("POST", url, true);
+        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhttp.send(
+                "username="+username+
+                "&password="+password+
+                "&fname="+fname+
+                "&lname="+lname+
+                "&data-nascita="+data_nascita+
+                "&email="+email+
+                "&numero-cellulare="+numero_cellulare+
+                "&ruolo="+ruolo);
+      }
+    }
   </script>
 </head>
-
-
 
 <body>
   <div id="navbar"></div>
   <div id="form" style="text-align: center; margin-top: 3%">
-    <form action="utente" method="POST">
-      <input type="text" id="fname" name="fname" placeholder="Nome">
-      <input type="text" id="lname" name="lname" placeholder="Cognome">
+    <form action="javascript:validateInputs()">
+      <input type="text" id="fname" placeholder="Nome">
+      <input type="text" id="lname" placeholder="Cognome">
       <br>
-      <input type="date" id="data-nascita-label" name="data-nascita" placeholder="Data di nascita">
+      <input type="date" id="data-nascita-label" placeholder="Data di nascita">
       <br>
-      <input type="text" id="email" name="email" placeholder="email">
-      <input type="tel" id="numero-cellulare" name="numero-cellulare" placeholder="Inserisci il tuo numero di cellulare">
+      <input type="text" id="email" placeholder="email">
+      <input type="tel" id="numero-cellulare" placeholder="Inserisci il tuo numero di cellulare">
       <br>
-      <input type="username" id="username-label" name="username" placeholder="Username">
+      <input type="text" id="username-label" class="username_input" placeholder="Username">
       <br>
-      <input type="password" id="password1" name="password" placeholder="Password">
-      <input type="password" id="password" name="password" placeholder="Ripeti password">
+      <input type="password" id="password1" class="password_input" placeholder="Password">
+      <input type="password" id="password" class="password_input" placeholder="Ripeti password">
       <br>
       <div style="margin-top: 15px; margin-bottom:7px">Scegli il tuo ruolo</div>
-      <select style="width:80%" name="ruolo" >
+      <select style="width:80%" name="ruolo" id="ruolo">
         <option>simpatizzante</option>
         <option>aderente</option>
       </select>
@@ -42,14 +90,14 @@
       <br>
       <div style="width:170px; margin-left:auto; margin-right:auto; margin-top:20px">
         <input type="submit" value="Invia" style="background-color:#B4DC7F; width: 80px; height: 30px;">
-        <input type="submit" value="Pulisci" style="background-color:#B4DC7F; width: 80px; height: 30px;">
+        <input type="reset" value="Pulisci" style="background-color:#B4DC7F; width: 80px; height: 30px;">
       </div>
+      <h3 class="flex-grow-4 text_center text_error" id="error"></h3>
+
     </form>
     <div id="fraseMotivazionale" class="centratura" style="background: rgb(255, 255, 255, 0.5); height: 50px; width: 75%; border-radius:10%; padding:10px; margin-top: 20px"> </div>
   </div>
   <div id="navbar2"></div>
 </body>
-
-
 
 </html>

@@ -78,7 +78,7 @@ public class UtenteController extends HttpServlet {
         Utente utente = utenteService.getUtenteByUsername(username);    //Username già esistente?
 
         //Da qui in poi controllo campi ricevuti
-        String errMessage = "{\"25\":[";   //json inviato solamente se presenti errori nei vari campi
+        String jsonMessage = "";   //messaggio json
         ArrayList<String> errors = new ArrayList<>();
 
         //Tutti i campi devono essere presenti
@@ -86,19 +86,19 @@ public class UtenteController extends HttpServlet {
             errors.add("username");
         }
         if (fname == null || fname.isEmpty()) {
-            errors.add("fname");
+            errors.add("nome");
         }
         if (lname == null || lname.isEmpty()) {
-            errors.add("lname");
+            errors.add("cognome");
         }
         if (data_nascita == null) {
-            errors.add("data-nascita");
+            errors.add("data di nascita");
         }
         if (email == null || email.isEmpty()) {
             errors.add("email");
         }
         if (numero_cellulare == null || numero_cellulare.isEmpty()) {
-            errors.add("numero-cellulare");
+            errors.add("numero di cellulare");
         }
         if (!Utility.isPasswordValid(password)) {        //PW VALIDA MIGA$1al
             errors.add("password");
@@ -108,19 +108,20 @@ public class UtenteController extends HttpServlet {
         }
 
         /** Se presenti errori nei campi, si compone un messaggio di errore, nella forma:
-         *  { "25": [ "fname", "surname", "password" ] }
+         *  { "25": [ "nome", "cognome", "password" ] }
          *  i nomi dei campi usati sono gli stessi degli input presenti in registrazione.html
          */
         if (!errors.isEmpty()) {
+            jsonMessage += "{\"25\":[";
             for (int i = 0; i < errors.size(); i++) {
                 if (i < errors.size() - 1) {
-                    errMessage += "\"" + errors.get(i) + "\",";
+                    jsonMessage += "\"" + errors.get(i) + "\",";
                 } else {
-                    errMessage += "\"" + errors.get(i) + "\"";
+                    jsonMessage += "\"" + errors.get(i) + "\"";
                 }
             }
-            errMessage += "]}";
-            writer.print(errMessage);
+            jsonMessage += "], \"success\": false}";
+            writer.print(jsonMessage);
             writer.flush();
 
         } else {   //Utente valido, lo si inserice nel db
@@ -140,7 +141,10 @@ public class UtenteController extends HttpServlet {
             }
             if (utenteService.insertUtente(nuovoUtente)) {
                 //Registrazione avvenuta con successo
-                response.sendRedirect("./messaggioRegistrazione.html");
+                jsonMessage += "{\"success\": true, \"redirectUrl\": \"./messaggioRegistrazione.html\"}";
+                writer.print(jsonMessage);
+                writer.flush();
+
             } else {
                 //Errore
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
