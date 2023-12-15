@@ -39,7 +39,7 @@ public class SimpatizzanteFilter implements Filter {
             utente = utenteService.getUtenteByUsername(username);
             ruoloSession = (int) session.getAttribute("ruolo");
 
-            if (utente != null && Utility.isUsernameValid(username) && isRuoloValid(ruoloSession) && isRuoloValid(utente.getRuolo())) {
+            if (utente != null && Utility.isUsernameValid(username) && isRuoloSimpatizzante(ruoloSession) && isRuoloSimpatizzante(utente.getRuolo())) {
                 chain.doFilter(httpRequest, httpResponse);
 
             }else {
@@ -48,7 +48,7 @@ public class SimpatizzanteFilter implements Filter {
         }
     }
 
-    private boolean isRuoloValid(int ruolo){
+    private boolean isRuoloSimpatizzante(int ruolo){
         return ruolo == Utente.RUOLO_SIMPATIZZANTE;
     }
 }

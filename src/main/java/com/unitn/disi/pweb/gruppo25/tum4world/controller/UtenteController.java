@@ -154,7 +154,7 @@ public class UtenteController extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO usato per la modifica di un utente già esistente, nel body request Utente completo di tutti i campi
+        resp.sendError( HttpServletResponse.SC_METHOD_NOT_ALLOWED);
     }
 
     @Override
