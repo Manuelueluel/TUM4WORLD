@@ -36,14 +36,14 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        if (utenteByUsername == null){ // username non valido
-            writer.print("{\"25\":\"Username non valido\", \"success\":false}");
+        if (utenteByUsername == null){ // username non esistente
+            writer.print("{\"25\":\"Username non esistente\", \"success\":false}");
 
         } else {
             utente = utenteService.getUtenteByUsernameAndPassword(username, password);
 
             if (utente == null) { //username valido ma password no
-                writer.print("{\"25\":\"Password non valida\", \"success\":false}");
+                writer.print("{\"25\":\"La password associata a tale username è sbagliata\", \"success\":false}");
 
             } else { //username valido e password valida
                 if (session == null) {   //Utente trovato ma senza session
@@ -76,22 +76,25 @@ public class LoginServlet extends HttpServlet {
 
         switch (utente.getRuolo()) {
             case Utente.RUOLO_AMMINISTRATORE:
-                session.setAttribute("username", utente.getUsername());
-                session.setAttribute("ruolo", Utente.RUOLO_AMMINISTRATORE);
+                session.setAttribute(Utente.USERNAME_ATTRIBUTE, utente.getUsername());
+                session.setAttribute(Utente.RUOLO_ATTRIBUTE, Utente.RUOLO_AMMINISTRATORE);
+                session.setAttribute(Utente.ISLOGGEDIN_ATTRIBUTE, true);
                 String encode = response.encodeRedirectURL("./privata/amministratore.html");
                 //response.sendRedirect(encode);
                 writer.print("{\"success\":true, \"redirectUrl\":\""+encode+"\"}");
                 break;
             case Utente.RUOLO_ADERENTE:
-                session.setAttribute("username", utente.getUsername());
-                session.setAttribute("ruolo", Utente.RUOLO_ADERENTE);
+                session.setAttribute(Utente.USERNAME_ATTRIBUTE, utente.getUsername());
+                session.setAttribute(Utente.RUOLO_ATTRIBUTE, Utente.RUOLO_ADERENTE);
+                session.setAttribute(Utente.ISLOGGEDIN_ATTRIBUTE, true);
                 encode = response.encodeRedirectURL("./privata/aderente.html");
                 //response.sendRedirect(encode);
                 writer.print("{\"success\":true, \"redirectUrl\":\""+encode+"\"}");
                 break;
             case Utente.RUOLO_SIMPATIZZANTE:
-                session.setAttribute("username", utente.getUsername());
-                session.setAttribute("ruolo", Utente.RUOLO_SIMPATIZZANTE);
+                session.setAttribute(Utente.USERNAME_ATTRIBUTE, utente.getUsername());
+                session.setAttribute(Utente.RUOLO_ATTRIBUTE, Utente.RUOLO_SIMPATIZZANTE);
+                session.setAttribute(Utente.ISLOGGEDIN_ATTRIBUTE, true);
                 encode = response.encodeRedirectURL("./privata/simpatizzante.html");
                 //response.sendRedirect(encode);
                 writer.print("{\"success\":true, \"redirectUrl\":\""+encode+"\"}");

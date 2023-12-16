@@ -9,6 +9,13 @@ public class Utente implements Serializable {
     public final static int RUOLO_ADERENTE = 1;
     public final static int RUOLO_SIMPATIZZANTE = 2;
 
+    //Nomi attributi usati nelle session
+    public final static String RUOLO_ATTRIBUTE = "ruolo";
+
+    public final static String USERNAME_ATTRIBUTE = "username";
+
+    public final static String ISLOGGEDIN_ATTRIBUTE = "isLoggedIn";
+
     private int id;
     private String nome;
     private String cognome;

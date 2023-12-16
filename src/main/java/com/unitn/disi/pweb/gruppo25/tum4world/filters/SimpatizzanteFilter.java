@@ -13,10 +13,8 @@ import java.io.IOException;
 
 @WebFilter(filterName = "SimpatizzanteFilter")
 public class SimpatizzanteFilter implements Filter {
-    private UtenteService utenteService;
 
     public void init(FilterConfig config) throws ServletException {
-        this.utenteService = new UtenteService();
     }
 
     public void destroy() {
@@ -27,28 +25,19 @@ public class SimpatizzanteFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession(false);
-        String username = "";
-        Utente utente = null;
-        int ruoloSession = Utente.RUOLO_SIMPATIZZANTE;
 
-        if (session == null) {
+        boolean isLoggedIn = (session != null && session.getAttribute(Utente.ISLOGGEDIN_ATTRIBUTE) != null);
+
+        if ( !isLoggedIn) {
             httpResponse.sendError( javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED);
 
-        }else{
-            username = session.getAttribute("username").toString();
-            utente = utenteService.getUtenteByUsername(username);
-            ruoloSession = (int) session.getAttribute("ruolo");
+        } else {
+            int ruolo = (int) session.getAttribute(Utente.RUOLO_ATTRIBUTE);
 
-            if (utente != null && Utility.isUsernameValid(username) && isRuoloSimpatizzante(ruoloSession) && isRuoloSimpatizzante(utente.getRuolo())) {
-                chain.doFilter(httpRequest, httpResponse);
-
-            }else {
+            if ( !(ruolo == Utente.RUOLO_SIMPATIZZANTE)) {
                 httpResponse.sendError( javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED);
             }
         }
-    }
-
-    private boolean isRuoloSimpatizzante(int ruolo){
-        return ruolo == Utente.RUOLO_SIMPATIZZANTE;
+        chain.doFilter(httpRequest, httpResponse);
     }
 }

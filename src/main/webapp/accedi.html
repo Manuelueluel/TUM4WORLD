@@ -11,9 +11,31 @@
       window.addEventListener('pageshow', incrementCounter);
 
       function validateInputs(){
-        var xhttp = new XMLHttpRequest();
         var username = document.getElementById("username").value;
         var password = document.getElementById("password").value;
+        var errorElement = document.getElementById("error").innerText + "25:";
+        var errorsList = []
+        //TODO non mostra errori nella pagina, solo quelli che arrivano dalla servlet
+        if (username === null || username === undefined || username === "") {
+          errorsList.push("Username non corretto")
+        }
+        if (password === null || password === undefined || password === "") {
+          errorsList.push("Password non corretta")
+        }
+
+        if( errorsList.length === 0){
+          sendRequest(username, password, errorElement)
+        } else {
+          console.log("errorList "+errorsList)
+          errorsList.forEach( error => {
+            console.log(error)
+            errorElement += " "+error;
+          })
+        }
+      }
+
+      function sendRequest(username, password, errorElement){
+        var xhttp = new XMLHttpRequest();
         var url = "login";
 
         xhttp.onreadystatechange = function() {
@@ -25,10 +47,11 @@
               window.location.assign(resp.redirectUrl)
             }else{
               //In caso di errore viene visualizzato un messaggio nella pagina
-              document.getElementById("error").innerText = resp["25"];
+              errorElement = resp["25"];
             }
           }
         };
+
         xhttp.open("POST", url, true);
         xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhttp.send("username="+username+"&password="+password);
