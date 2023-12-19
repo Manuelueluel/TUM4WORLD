@@ -2,7 +2,7 @@
 var getRandomFraseMotivazionale = function (id) {
     var element = document.getElementById(id);
     var xhttp  = new XMLHttpRequest();
-    var api = "http://localhost:8080/TUM4WORLD/frase";
+    var api = "/TUM4WORLD/frase";
     xhttp.responseType = "json";
 
     xhttp.onreadystatechange = function() {

@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Esci</title>
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <script src="loadNavbars.js"></script>
     <script src="counter.js"></script>
+    <script src="privatePageRedirect.js"></script>
     <script>
         const delay = ms => new Promise(res => setTimeout(res, ms));
         const backToIndexAfterSe = async () => {
@@ -23,6 +25,14 @@
         window.addEventListener('pageshow', () => {
             backToIndexAfterSe();
             incrementCounter();
+        });
+        window.addEventListener('pageshow', () => {
+            includeNavbarBasedOnStatus("navbar", (ruolo) => {
+                redirectToPrivatePageFromNavbar(ruolo)
+            })
+        })
+        window.addEventListener('pageshow', () => {
+            includeHTML("navbar2", "barrainferiore.html")
         });
     </script>
 </head>

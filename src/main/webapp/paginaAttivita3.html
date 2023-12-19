@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Pagina attività 3</title>
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <script src="randomQuotes.js"></script>
     <script src="loadNavbars.js"></script>
+    <script src="privatePageRedirect.js"></script>
+    <script src="counter.js"></script>
+    <script>
+        window.addEventListener('pageshow', incrementCounter);
+        window.addEventListener('pageshow', () => {
+            includeNavbarBasedOnStatus("navbar", (ruolo) => {
+                redirectToPrivatePageFromNavbar(ruolo)
+            })
+        })
+        window.addEventListener('pageshow', () => {
+            includeHTML("navbar2", "barrainferiore.html")
+        });
+    </script>
 </head>
 <body>
     <div id="navbar"></div>

@@ -5,13 +5,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Chi siamo</title>
+  <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
   <link rel="stylesheet" href="style.css">
-
   <script src="randomQuotes.js"></script>
   <script src="loadNavbars.js"></script>
   <script src="counter.js"></script>
-
+  <script src="privatePageRedirect.js"></script>
   <script>
+    window.addEventListener('pageshow', incrementCounter);
+    window.addEventListener('pageshow', () => {
+      includeNavbarBasedOnStatus("navbar", (ruolo) => {
+        redirectToPrivatePageFromNavbar(ruolo)
+      })
+    })
+    window.addEventListener('pageshow', () => {
+      includeHTML("navbar2", "barrainferiore.html")
+    });
 
     const vettoreFrasi = ["La Tum4World è stata fondata nel 2000 in risposta ai primi studi sui rischi per le tartarughe verdi marine della Grande Barriera Corallina australiana a causa del riscaldamento globale",
       "Questa specie è particolarmente vulnerabile alle temperature dell'habitat durante la fase di incubazione delle uova, poiché il sesso dipende da essa: le temperature più calde producono più femmine",
@@ -41,8 +50,6 @@
       testoDaModificare.innerText = vettoreFrasi[indice];
       pathDaModificare.src = vettorePercorsi[indice];
     }
-
-    window.addEventListener('pageshow', incrementCounter);
   </script>
 
 </head>

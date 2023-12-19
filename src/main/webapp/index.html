@@ -1,29 +1,27 @@
 <!DOCTYPE html><html>
 
-
-
     <head>
         <meta charset="UTF-8">
         <title>TUM4WORLD</title>
+        <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
         <link rel="stylesheet" href="style.css">
-
         <script src="randomQuotes.js"></script>
         <script src="loadNavbars.js"></script>
+        <script src="privatePageRedirect.js"></script>
         <script src="counter.js"></script>
         <script>
-            function download_file(fileURL, fileName) {
-                var link = document.createElement('a');
-                link.href = fileURL;
-                link.download = 'volantino.pdf';
-                link.dispatchEvent(new MouseEvent('click'));
-            };
-
             window.addEventListener('pageshow', incrementCounter);
+            window.addEventListener('pageshow', () => {
+                includeNavbarBasedOnStatus("navbar", (ruolo) => {
+                    redirectToPrivatePageFromNavbar(ruolo)
+                })
+            })
+            window.addEventListener('pageshow', () => {
+                includeHTML("navbar2", "barrainferiore.html")
+            });
         </script>
 
     </head>
-
-
 
     <body>
         <div id="navbar"></div>
@@ -34,14 +32,12 @@
                 <td style="width:33.333%"> <img src="img/home_associazione.jpg" style="border-radius: 5%" class="centratura"></td>
             </tr>
             <tr>
-                <td style="width:33.333%"> <button type="button" class="centratura" id="volantino" onclick="download_file('turtles.pdf', 'turtles.pdf')">SCARICA IL VOLANTINO</button></td>
+                <td style="width:33.333%"> <a class="centratura" id="volantino" download="volantino.pdf" href="turtles.pdf">SCARICA IL VOLANTINO</a></td>
                 <td style="width:33.333%"> </td>
                 <td style="width:33.333%"> <div id="fraseMotivazionale" class="centratura" style="background: rgb(255, 255, 255, 0.5); height: 82px; width: 175px; border-radius:5%; padding:10px; margin-top: 85px"> </div> </td>
             </tr>
         </table>
         <div id="navbar2"></div>
     </body>
-
-
 
 </html>
