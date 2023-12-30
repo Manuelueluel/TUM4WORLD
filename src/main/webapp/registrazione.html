@@ -2,13 +2,14 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Contatti</title>
+  <title>Registrazione</title>
   <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
   <link rel="stylesheet" href="style.css">
   <script src="randomQuotes.js"></script>
   <script src="loadNavbars.js"></script>
   <script src="counter.js"></script>
   <script src="privatePageRedirect.js"></script>
+  <script src="validations.js"></script>
   <script>
     window.addEventListener('pageshow', incrementCounter);
     window.addEventListener('pageshow', () => {
@@ -20,8 +21,7 @@
       includeHTML("navbar2", "barrainferiore.html")
     });
 
-    function validateInputs(){
-      var xhttp = new XMLHttpRequest();
+    function validateInputs() {
       var fname = document.getElementById("fname").value;
       var lname = document.getElementById("lname").value;
       var data_nascita = document.getElementById("data-nascita-label").value;
@@ -32,45 +32,90 @@
       var password = document.getElementById("password").value;
       var password1 = document.getElementById("password1").value;
       var error = document.getElementById("error");
-      var url = "utente";
+      var errorList = []
 
-      if ( !(password === password1)) {
-        error.innerText = "Le password inserite non coincidono"
-      }else{
-        xhttp.onreadystatechange = function() {
-          if (this.readyState === 4 && this.status === 200) {
-            var resp = JSON.parse(xhttp.response)
+      if (fname === null || fname === undefined || fname === "") {
+        errorList.push("Nome obbligatorio")
+      }
+      if (lname === null || lname === undefined || lname === "") {
+        errorList.push("Cognome obbligatorio")
+      }
+      if (data_nascita === null || data_nascita === undefined || data_nascita === "") {
+        errorList.push("Data di nascita obbligatoria")
+      } else if( !isMaggiorenne(data_nascita)){
+        errorList.push("Devi essere maggiorenne per iscriverti");
+      }
+      if (numero_cellulare === null || numero_cellulare === undefined || numero_cellulare === "") {
+        errorList.push("Numero di telefono obbligatorio")
+      }else if (!isNumeroTelefonicoValid(numero_cellulare)) {
+        errorList.push("Numero di telefono non corretto");
+      }
+      if (email === null || email === undefined || email === "") {
+        errorList.push("Email obbligatoria")
+      }else if (!isEmailValid(email)) {
+        errorList.push("Email non corretta")
+      }
+      if (username === null || username === undefined || username === "") {
+        errorList.push("Username obbligatorio")
+      }
+      if (password === null || password === undefined || password === "") {
+        errorList.push("Password obbligatoria");
+      } else {
+        checkForErrorsInPassword(password, errorList)
+      }
+      if(!(password === password1)){
+        errorList.push("Le password inserite non coincidono");
+      }
 
-            if(resp.success){
-              //Se registrazione avvenuta con successo si viene reindirizzati alla pagina di registrazione confermata
-              window.location.assign(resp.redirectUrl);
-            }else{
-              //In caso di errore viene visualizzato un messaggio nella pagina indicante i cambi errati
-              error.innerText = "I seguenti campi non sono corretti";
-
-              if (resp["25"].length > 1) {
-                for (err of resp["25"]) {
-                  error.innerText += " " + err;
-                }
-              }else{
-                error.innerText = "Il seguente campo non è corretto " + resp["25"];
-              }
-            }
-          }
-        };
-        xhttp.open("POST", url, true);
-        xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhttp.send(
-                "username="+username+
-                "&password="+password+
-                "&fname="+fname+
-                "&lname="+lname+
-                "&data-nascita="+data_nascita+
-                "&email="+email+
-                "&numero-cellulare="+numero_cellulare+
-                "&ruolo="+ruolo);
+      if(errorList.length !== 0) {  // mostra gli errori se presenti concatenandoli nell'elemento con id 'error'
+        error.innerText = "25:";
+        errorList.forEach( er => {
+          error.innerText += er + "\n";
+        })
+      } else {    // altrimenti se non presenti errori invia la request al backend
+        sendRequest(username, password, fname, lname, data_nascita, email, numero_cellulare, ruolo);
       }
     }
+
+    function sendRequest(username, password, fname, lname, data_nascita, email, numero_cellulare, ruolo) {
+      var xhttp = new XMLHttpRequest();
+      var url = "utente";
+      var error = document.getElementById("error");
+
+      xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+          var resp = JSON.parse(xhttp.response)
+
+          if (resp.success) {
+            //Se registrazione avvenuta con successo si viene reindirizzati alla pagina di registrazione confermata
+            window.location.assign(resp.redirectUrl);
+          } else {
+            //In caso di errore viene visualizzato un messaggio nella pagina indicante i cambi errati
+            error.innerText = "I seguenti campi non sono corretti";
+
+            if (resp["25"].length > 1) {
+              for (err of resp["25"]) {
+                error.innerText += " " + err;
+              }
+            } else {
+              error.innerText = "Il seguente campo non è corretto " + resp["25"];
+            }
+          }
+        }
+      };
+      xhttp.open("POST", url, true);
+      xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhttp.send(
+              "username=" + username +
+              "&password=" + password +
+              "&fname=" + fname +
+              "&lname=" + lname +
+              "&data-nascita=" + data_nascita +
+              "&email=" + email +
+              "&numero-cellulare=" + numero_cellulare +
+              "&ruolo=" + ruolo);
+    }
+
   </script>
 </head>
 
