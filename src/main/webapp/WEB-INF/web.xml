@@ -15,15 +15,15 @@
     <!-- Filtri autenticazione e area privata -->
     <filter>
         <filter-name>AmministratoreFilter</filter-name>
-        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.AmministratoreFilter</filter-class>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.controller.filters.AmministratoreFilter</filter-class>
     </filter>
     <filter>
         <filter-name>AderenteFilter</filter-name>
-        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.AderenteFilter</filter-class>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.controller.filters.AderenteFilter</filter-class>
     </filter>
     <filter>
         <filter-name>SimpatizzanteFilter</filter-name>
-        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.filters.SimpatizzanteFilter</filter-class>
+        <filter-class>com.unitn.disi.pweb.gruppo25.tum4world.controller.filters.SimpatizzanteFilter</filter-class>
     </filter>
 
     <filter-mapping>
